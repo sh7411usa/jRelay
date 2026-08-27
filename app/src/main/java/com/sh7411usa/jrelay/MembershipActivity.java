@@ -169,10 +169,6 @@ public class MembershipActivity extends Activity {
                 }
                 firstLine = false;
 
-                if (nickname.isEmpty()) {
-                    skipped++;
-                    continue;
-                }
                 Member existing = memberRepository.findByPhone(normalized);
                 if (existing != null && existing.active) {
                     skipped++;

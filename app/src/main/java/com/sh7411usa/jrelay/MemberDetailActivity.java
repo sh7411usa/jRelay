@@ -5,9 +5,12 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.ContactsContract;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +23,15 @@ import com.sh7411usa.jrelay.model.Member;
 import com.sh7411usa.jrelay.model.MessageRecord;
 import com.sh7411usa.jrelay.sms.CommandProcessor;
 import com.sh7411usa.jrelay.sms.PhoneNumberUtils;
+import com.sh7411usa.jrelay.util.UiUtil;
+import com.sh7411usa.jrelay.util.MessageDetailsDialog;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MemberDetailActivity extends Activity {
+
+    private static final long STATUS_REFRESH_MS = 1000;
 
     public static final String EXTRA_MEMBER_ID = "extra_member_id";
 
@@ -40,6 +47,17 @@ public class MemberDetailActivity extends Activity {
     private LinearLayout activityContainer;
     private Button adminButton;
     private Button muteButton;
+    private boolean messageTouchActive;
+    private final Handler statusHandler = new Handler(Looper.getMainLooper());
+    private final Runnable statusRefresh = new Runnable() {
+        @Override
+        public void run() {
+            if (member != null && !messageTouchActive) {
+                renderActivity();
+            }
+            statusHandler.postDelayed(this, STATUS_REFRESH_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +97,13 @@ public class MemberDetailActivity extends Activity {
     protected void onResume() {
         super.onResume();
         refresh();
+        statusHandler.post(statusRefresh);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        statusHandler.removeCallbacks(statusRefresh);
     }
 
     private void refresh() {
@@ -131,7 +156,30 @@ public class MemberDetailActivity extends Activity {
             TextView bodyView = row.findViewById(R.id.text_message_body);
             TextView metaView = row.findViewById(R.id.text_message_meta);
             bodyView.setText(record.body);
-            metaView.setText(DateFormat.format("MMM d, h:mm a", record.timestamp));
+            String meta = DateFormat.format("MMM d, h:mm a", record.timestamp).toString();
+            String deliveryStatus = UiUtil.deliveryStatusLabel(this,
+                    record.deliveryStatus, record.deliveryErrorCode);
+            if (deliveryStatus != null) {
+                meta += " • " + deliveryStatus;
+            }
+            metaView.setText(meta);
+            row.setClickable(true);
+            row.setFocusable(true);
+            row.setLongClickable(true);
+            row.setBackgroundResource(R.drawable.focus_highlight);
+            row.setOnTouchListener((v, event) -> {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    messageTouchActive = true;
+                } else if (event.getActionMasked() == MotionEvent.ACTION_UP ||
+                        event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+                    messageTouchActive = false;
+                }
+                return false;
+            });
+            row.setOnLongClickListener(v -> {
+                MessageDetailsDialog.show(this, record, member);
+                return true;
+            });
             activityContainer.addView(row);
         }
     }

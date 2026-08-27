@@ -40,10 +40,6 @@ public class AddMemberActivity extends Activity {
             showError(R.string.error_invalid_number);
             return;
         }
-        if (nickname.isEmpty()) {
-            showError(R.string.error_empty_nickname);
-            return;
-        }
         Member existing = memberRepository.findByPhone(normalized);
         if (existing != null && existing.active) {
             showError(R.string.error_duplicate_number);

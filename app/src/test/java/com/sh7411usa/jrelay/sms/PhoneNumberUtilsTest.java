@@ -45,6 +45,13 @@ public class PhoneNumberUtilsTest {
     }
 
     @Test
+    public void splitLeadingNumberAndRest_supportsAdminRenameSyntax() {
+        assertArrayEquals(
+                new String[]{"914-433-5742", "Rabbi New Name"},
+                PhoneNumberUtils.splitLeadingNumberAndRest("914-433-5742 Rabbi New Name"));
+    }
+
+    @Test
     public void splitTrailingNumberAndRest_handlesNicknameFirst() {
         assertArrayEquals(
                 new String[]{"234-567-8910", "User"},
@@ -59,5 +66,17 @@ public class PhoneNumberUtilsTest {
         assertArrayEquals(
                 new String[]{"+1 (234) 567-8910", "John Doe"},
                 PhoneNumberUtils.splitTrailingNumberAndRest("John Doe +1 (234) 567-8910"));
+    }
+
+    @Test
+    public void splitNumberAndOptionalNickname_acceptsNumberOnly() {
+        assertArrayEquals(
+                new String[]{"234-567-8910", ""},
+                PhoneNumberUtils.splitNumberAndOptionalNickname("234-567-8910"));
+    }
+
+    @Test
+    public void defaultNickname_usesOnlyLastFourDigits() {
+        assertEquals("Member 8910", PhoneNumberUtils.defaultNickname(EXPECTED));
     }
 }

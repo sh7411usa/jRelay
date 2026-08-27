@@ -22,6 +22,7 @@ import com.sh7411usa.jrelay.sms.CommandProcessor;
 import com.sh7411usa.jrelay.sms.SendQueueStatus;
 import com.sh7411usa.jrelay.util.Prefs;
 import com.sh7411usa.jrelay.util.UiUtil;
+import com.sh7411usa.jrelay.util.MessageDetailsDialog;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +44,7 @@ public class MainActivity extends Activity {
     private TextView statsMessagesTodayView;
     private TextView statsMessagesTotalView;
     private TextView queueCountView;
+    private TextView deliverySummaryView;
     private TextView nextBurstView;
     private LinearLayout recentActivityContainer;
 
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
         @Override
         public void run() {
             refreshQueueStatus();
+            renderRecentActivity();
             queueStatusHandler.postDelayed(this, QUEUE_STATUS_TICK_MS);
         }
     };
@@ -78,6 +81,7 @@ public class MainActivity extends Activity {
         statsMessagesTodayView = findViewById(R.id.text_stats_messages_today);
         statsMessagesTotalView = findViewById(R.id.text_stats_messages_total);
         queueCountView = findViewById(R.id.text_queue_count);
+        deliverySummaryView = findViewById(R.id.text_delivery_summary);
         nextBurstView = findViewById(R.id.text_next_burst);
         recentActivityContainer = findViewById(R.id.container_recent_activity);
 
@@ -90,6 +94,8 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, RateLimitActivity.class)));
         findViewById(R.id.button_send_group_message).setOnClickListener(v ->
                 startActivity(new Intent(this, SendGroupMessageActivity.class)));
+        findViewById(R.id.button_failed_messages).setOnClickListener(v ->
+                startActivity(new Intent(this, FailedMessagesActivity.class)));
     }
 
     @Override
@@ -135,6 +141,10 @@ public class MainActivity extends Activity {
     private void refreshQueueStatus() {
         groupNameView.setText(prefs.getGroupName());
         queueCountView.setText(getString(R.string.stats_queue_count, outboxRepository.countUnsent()));
+        deliverySummaryView.setText(getString(R.string.stats_delivery_summary,
+                outboxRepository.countByStatus("DELIVERED"),
+                outboxRepository.countByStatus("SENT"),
+                outboxRepository.countByStatus("FAILED", "DELIVERY_FAILED")));
 
         long nextBurstAt = SendQueueStatus.getNextBurstAtMillis();
         if (nextBurstAt > 0) {
@@ -174,13 +184,26 @@ public class MainActivity extends Activity {
             TextView metaView = row.findViewById(R.id.text_message_meta);
             bodyView.setText(record.body);
             String memberLabel = "";
+            Member rowMember = null;
             if (record.memberId != null) {
-                Member m = memberRepository.findById(record.memberId);
-                if (m != null) {
-                    memberLabel = m.nickname + " • ";
+                rowMember = memberRepository.findById(record.memberId);
+                if (rowMember != null) {
+                    memberLabel = rowMember.nickname + " • ";
                 }
             }
-            metaView.setText(memberLabel + DateFormat.format("MMM d, h:mm a", record.timestamp));
+            String meta = memberLabel + DateFormat.format("MMM d, h:mm a", record.timestamp);
+            String deliveryStatus = UiUtil.deliveryStatusLabel(this,
+                    record.deliveryStatus, record.deliveryErrorCode);
+            if (deliveryStatus != null) {
+                meta += " • " + deliveryStatus;
+            }
+            metaView.setText(meta);
+            Member detailsMember = rowMember;
+            row.setLongClickable(true);
+            row.setOnLongClickListener(v -> {
+                MessageDetailsDialog.show(this, record, detailsMember);
+                return true;
+            });
 
             if (record.memberId != null) {
                 long memberId = record.memberId;

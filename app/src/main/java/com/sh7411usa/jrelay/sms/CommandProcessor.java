@@ -35,9 +35,8 @@ public class CommandProcessor {
             return;
         }
 
-        messageRepository.log(sender.id, "IN", "RELAY", body);
-
         String trimmed = body == null ? "" : body.trim();
+        messageRepository.log(sender.id, "IN", trimmed.startsWith("#") ? "COMMAND" : "RELAY", body);
         if (trimmed.startsWith("#")) {
             handleCommand(sender, trimmed);
         } else if (!sender.isMuted) {
@@ -63,6 +62,8 @@ public class CommandProcessor {
             handleList(sender);
         } else if (lower.startsWith("#name")) {
             handleNameChange(sender, text);
+        } else if (lower.startsWith("#rename")) {
+            handleAdminRename(sender, text);
         } else if (lower.startsWith("#admin")) {
             handleAdminMessage(sender, text);
         } else if (lower.startsWith("#add")) {
@@ -128,6 +129,36 @@ public class CommandProcessor {
         broadcastExcept(sender.id, context.getString(R.string.tpl_name_changed_self_other, oldNickname, newNickname));
     }
 
+    private void handleAdminRename(Member sender, String text) {
+        if (!sender.isAdmin) {
+            reply(sender, context.getString(R.string.tpl_unauthorized));
+            return;
+        }
+        String rest = stripLeadingWord(text).trim();
+        String[] parts = PhoneNumberUtils.splitLeadingNumberAndRest(rest);
+        if (parts == null) {
+            reply(sender, context.getString(R.string.tpl_rename_usage));
+            return;
+        }
+        String normalized = PhoneNumberUtils.normalize(parts[0]);
+        String newNickname = parts[1].trim();
+        if (normalized == null || newNickname.isEmpty()) {
+            reply(sender, context.getString(R.string.tpl_rename_usage));
+            return;
+        }
+        Member target = memberRepository.findByPhone(normalized);
+        if (target == null || !target.active) {
+            reply(sender, context.getString(R.string.tpl_member_not_found));
+            return;
+        }
+        String oldNickname = target.nickname;
+        memberRepository.setNickname(target.id, newNickname);
+        String notice = context.getString(R.string.tpl_name_changed_admin_other,
+                sender.nickname, oldNickname, newNickname);
+        broadcastExcept(sender.id, notice);
+        reply(sender, notice);
+    }
+
     /** Renames a member from the app UI and notifies the rest of the group. changedByLabel is typically "An Admin". */
     public void renameMemberFromApp(Member target, String newNickname, String changedByLabel) {
         String oldNickname = target.nickname;
@@ -158,10 +189,7 @@ public class CommandProcessor {
             return;
         }
         String rest = stripLeadingWord(text).trim();
-        String[] parts = PhoneNumberUtils.splitLeadingNumberAndRest(rest);
-        if (parts == null) {
-            parts = PhoneNumberUtils.splitTrailingNumberAndRest(rest);
-        }
+        String[] parts = PhoneNumberUtils.splitNumberAndOptionalNickname(rest);
         if (parts == null) {
             reply(sender, context.getString(R.string.tpl_invalid_number));
             return;
@@ -170,10 +198,6 @@ public class CommandProcessor {
         String nickname = parts[1].trim();
         if (normalized == null) {
             reply(sender, context.getString(R.string.tpl_invalid_number));
-            return;
-        }
-        if (nickname.isEmpty()) {
-            reply(sender, context.getString(R.string.error_empty_nickname));
             return;
         }
         Member existing = memberRepository.findByPhone(normalized);
@@ -187,17 +211,23 @@ public class CommandProcessor {
     /** Adds a member and sends the standard welcome/broadcast messages. addedByLabel is either an admin's nickname or "An Admin". */
     public void addMember(String normalizedPhone, String nickname, String addedByLabel) {
         Member existing = memberRepository.findByPhone(normalizedPhone);
+        String effectiveNickname = nickname == null ? "" : nickname.trim();
+        if (effectiveNickname.isEmpty()) {
+            effectiveNickname = existing != null && existing.nickname != null && !existing.nickname.trim().isEmpty()
+                    ? existing.nickname
+                    : PhoneNumberUtils.defaultNickname(normalizedPhone);
+        }
         long id;
         if (existing != null && !existing.active) {
-            memberRepository.reactivate(existing.id, nickname, addedByLabel);
+            memberRepository.reactivate(existing.id, effectiveNickname, addedByLabel);
             id = existing.id;
         } else {
-            id = memberRepository.insert(normalizedPhone, nickname, false, addedByLabel);
+            id = memberRepository.insert(normalizedPhone, effectiveNickname, false, addedByLabel);
         }
         Member newMember = memberRepository.findById(id);
         String groupName = prefs.getGroupName();
         enqueue(newMember, context.getString(R.string.tpl_added_you, addedByLabel, groupName), "SYSTEM");
-        broadcastExcept(id, context.getString(R.string.tpl_added_other, addedByLabel, nickname));
+        broadcastExcept(id, context.getString(R.string.tpl_added_other, addedByLabel, effectiveNickname));
         SmsSendService.start(context);
     }
 
@@ -297,8 +327,8 @@ public class CommandProcessor {
     }
 
     private void enqueue(Member recipient, String message, String category) {
-        outboxRepository.enqueue(recipient.id, recipient.phoneE164, message);
-        messageRepository.log(recipient.id, "OUT", category, message);
+        long messageLogId = messageRepository.log(recipient.id, "OUT", category, message);
+        outboxRepository.enqueue(recipient.id, messageLogId, recipient.phoneE164, message);
     }
 
     private String stripLeadingWord(String text) {

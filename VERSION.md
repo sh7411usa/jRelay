@@ -1,5 +1,69 @@
 # Version History
 
+## 1.22 - Retry All Safe Failures
+
+- Added a confirmed **Retry All Safe** action to Failed Messages that requeues only send failures with zero submitted SMS segments.
+- Delivery failures and partial multipart submissions remain excluded to prevent duplicate messages.
+
+## 1.21 - Failed Messages View
+
+- Added a dashboard **Failed Messages** screen listing send failures, delivery failures, and scheduled retries in one place.
+- Tapping or holding a failed message opens full Message Details, including the duplicate-safe Retry action when Android submitted zero SMS segments.
+
+## 1.20 - Member History Long-Press Fix
+
+- Fixed member message-history rows being rebuilt by the one-second delivery-status refresh while they were being held, which could cancel the Message Details long-press gesture.
+
+## 1.19 - Safe SMS Retry
+
+- Added up to three automatic retries after 15, 30, and 60 minutes when Android rejects a message before any SMS segment is submitted.
+- Added a duplicate-safe **Retry** action to outbound Message Details; it is available only when zero segments were submitted.
+- Message Details now shows send-attempt count, last-attempt time, and next scheduled retry.
+- Multipart messages are never retried as a whole after even one segment was submitted, avoiding duplicate delivery of accepted segments.
+
+## 1.18 - Long-Press Message Details
+
+- Added a long-press **Message Details** dialog to dashboard Recent Activity and each member's history while preserving the dashboard's normal tap-to-open-member behavior.
+- Outbound details include exact recipient number, type, created/queued/submitted/delivered times, status, character count, multipart submitted/delivered/total progress, and readable error information.
+- Incoming details include sender, number, received time, character count, and whether the message was a command or regular relay text.
+- Newly received `#` messages are now logged with the COMMAND category so their details are accurate; existing history remains unchanged.
+- Message history rows are focusable with the existing DPAD focus highlight so long-press details remain accessible on small non-touch devices.
+
+## 1.17 - Admin Rename Command
+
+- Added the admin-only `#rename <number> <new nickname>` command, with support for spaces in both common formatted phone numbers and nicknames.
+- The command requires an active member's phone number, returns clear usage/not-found replies, and sends the existing admin rename notice to the acting admin and other unmuted members.
+- Added `#rename` to the admin command-help response and covered its number/nickname parsing with a unit test.
+
+## 1.16 - Optional Member Nicknames
+
+- Members can now be added without a nickname from the Add Member screen, `#add`, or CSV import.
+- Missing nicknames receive a privacy-friendly `Member ####` label based on the last four digits rather than exposing the full phone number through `#list`.
+- Re-adding an inactive member without a nickname preserves their previous nickname.
+- Updated command help and the Add Member hint to show that nicknames are optional, with unit coverage for number-only parsing and generated labels.
+
+## 1.15 - Historical Status Backfill and Live Refresh
+
+- Added a one-time SQLite v3-to-v4 migration that safely links historical outbox records to the nearest unlinked outbound history row only when member, full message body, and timestamp (within 10 seconds) agree.
+- Dashboard Recent Activity and open member-history screens now refresh delivery labels every second as sent/delivery callbacks arrive.
+- Preserves unmatched history rather than attaching a potentially incorrect delivery status.
+
+## 1.14 - Inline Delivery Status
+
+- Linked every newly queued outbox row to its exact outbound message-log row through a non-destructive SQLite v2-to-v3 migration.
+- Added Queued, Sending, Submitted, Delivered, Send Failed, and Delivery Failed labels directly beneath outbound messages in both dashboard Recent Activity and each member's message history.
+- Kept the compact dashboard delivery totals and failure notifications, while removing the separate Delivery Status button/screen so status appears in the normal message workflow.
+- Existing message and outbox history remains intact; exact inline linkage begins with messages created after upgrading to 1.14.
+
+## 1.13 - SMS Send and Delivery Reporting
+
+- Added per-part `PendingIntent` callbacks for both SMS submission and carrier delivery reports, including multipart messages.
+- Outbox entries now move through Queued, Sending, Submitted, Delivered, Send Failed, and Delivery Failed states instead of being marked sent immediately after calling `SmsManager`.
+- Added a non-destructive SQLite v1-to-v2 migration that preserves members, message history, settings, and existing outbox records while adding part counters, timestamps, and error codes.
+- Added a dashboard delivery summary and a DPAD-compatible **Delivery Status** screen showing the 100 most recent outbound messages, recipient, state, time, and error code when available.
+- Added high-priority local notifications when Android rejects a send or a carrier reports delivery failure.
+- Existing `SENT` outbox records are retained as Submitted; delivery status is available only for messages sent after upgrading.
+
 ## 1.12 - In-App License Viewer
 
 - Added `app/src/main/assets/license.html`, an HTML transcription of `LICENSE.md`.

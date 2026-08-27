@@ -78,6 +78,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/text_delivery_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/text_next_burst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,6 +120,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/send_group_message_shortcut"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/button_failed_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_failed_messages"
             android:clickable="true"
             android:focusable="true"
             android:layout_marginBottom="16dp" />

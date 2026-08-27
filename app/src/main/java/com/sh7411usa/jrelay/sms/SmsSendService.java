@@ -1,8 +1,10 @@
 package com.sh7411usa.jrelay.sms;
 
 import android.app.Service;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.IBinder;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -88,17 +90,42 @@ public class SmsSendService extends Service {
 
     private void sendOne(SmsManager smsManager, OutboxRepository outbox, OutboxRepository.OutboxItem item) {
         try {
-            if (item.body.length() > MAX_PART_LENGTH) {
-                ArrayList<String> parts = smsManager.divideMessage(item.body);
-                smsManager.sendMultipartTextMessage(item.phoneE164, null, parts, null, null);
-            } else {
-                smsManager.sendTextMessage(item.phoneE164, null, item.body, null, null);
+            ArrayList<String> parts = item.body.length() > MAX_PART_LENGTH
+                    ? smsManager.divideMessage(item.body)
+                    : new ArrayList<>();
+            if (parts.isEmpty()) {
+                parts.add(item.body);
             }
-            outbox.markSent(item.id);
+            outbox.prepareTracking(item.id, parts.size());
+
+            ArrayList<PendingIntent> sentIntents = new ArrayList<>();
+            ArrayList<PendingIntent> deliveryIntents = new ArrayList<>();
+            for (int i = 0; i < parts.size(); i++) {
+                sentIntents.add(statusIntent(item.id, i, SmsStatusReceiver.ACTION_SMS_SENT));
+                deliveryIntents.add(statusIntent(item.id, i, SmsStatusReceiver.ACTION_SMS_DELIVERED));
+            }
+
+            if (parts.size() == 1) {
+                smsManager.sendTextMessage(item.phoneE164, null, parts.get(0),
+                        sentIntents.get(0), deliveryIntents.get(0));
+            } else {
+                smsManager.sendMultipartTextMessage(item.phoneE164, null, parts,
+                        sentIntents, deliveryIntents);
+            }
         } catch (Exception e) {
             Log.e(TAG, "Failed to send SMS to " + item.phoneE164, e);
-            outbox.markFailed(item.id);
+            outbox.markFailed(item.id, -1);
+            SmsRetryScheduler.scheduleIfSafe(this, item.id);
         }
+    }
+
+    private PendingIntent statusIntent(long outboxId, int partIndex, String action) {
+        Intent intent = new Intent(this, SmsStatusReceiver.class);
+        intent.setAction(action);
+        intent.setData(Uri.parse("jrelay://sms/" + outboxId + "/" + partIndex + "/" + action));
+        intent.putExtra(SmsStatusReceiver.EXTRA_OUTBOX_ID, outboxId);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
+        return PendingIntent.getBroadcast(this, 0, intent, flags);
     }
 
     @Override

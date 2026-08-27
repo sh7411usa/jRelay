@@ -21,10 +21,60 @@
     <string name="stats_messages_today">Messages Today: %1$d</string>
     <string name="stats_messages_total">Messages Total: %1$d</string>
     <string name="stats_queue_count">Messages in Queue: %1$d</string>
+    <string name="stats_delivery_summary">Delivered: %1$d  Submitted: %2$d  Failed: %3$d</string>
     <string name="stats_next_burst">Next burst in %1$s (%2$d messages)</string>
     <string name="send_group_message_shortcut">Send to Group</string>
+    <string name="view_failed_messages">Failed Messages</string>
+    <string name="failed_messages_title">Failed Messages</string>
+    <string name="failed_messages_help">Tap or hold a message for details and a safe Retry option when available.</string>
+    <string name="no_failed_messages">No failed messages.</string>
+    <string name="retry_all_safe">Retry All Safe</string>
+    <string name="retry_all_safe_title">Retry Safe Failures?</string>
+    <string name="retry_all_safe_warning">Requeue every failed message for which Android reported zero submitted SMS segments? Partial sends and delivery failures will not be retried.</string>
+    <string name="retry_all_safe_result">Queued %1$d message(s) for retry.</string>
     <string name="recent_activity">Recent Activity</string>
     <string name="no_activity_yet">No activity yet.</string>
+    <string name="message_details_title">Message Details</string>
+    <string name="details_direction">Direction</string>
+    <string name="details_incoming">Incoming</string>
+    <string name="details_outgoing">Outgoing</string>
+    <string name="details_type">Type</string>
+    <string name="details_sender">Sender</string>
+    <string name="details_recipient">Recipient</string>
+    <string name="details_unknown_member">Unknown member</string>
+    <string name="details_number">Number</string>
+    <string name="details_received">Received</string>
+    <string name="details_created">Created</string>
+    <string name="details_characters">Characters</string>
+    <string name="details_status">Status</string>
+    <string name="details_queued">Queued</string>
+    <string name="details_submitted">Submitted</string>
+    <string name="details_delivered">Delivered</string>
+    <string name="details_attempts">Send attempts</string>
+    <string name="details_last_attempt">Last attempt</string>
+    <string name="details_next_retry">Next retry</string>
+    <string name="details_segments">SMS segments</string>
+    <string name="details_segment_progress">%1$d submitted, %2$d delivered, %3$d total</string>
+    <string name="details_error">Error</string>
+    <string name="details_error_with_code">%1$d (%2$s)</string>
+    <string name="details_unavailable">Not available</string>
+    <string name="details_type_relay">Relayed message</string>
+    <string name="details_type_command">Command</string>
+    <string name="details_type_admin">Admin message</string>
+    <string name="details_type_direct">Direct message</string>
+    <string name="details_type_system">System notice</string>
+    <string name="sms_error_generic">Generic failure</string>
+    <string name="sms_error_radio_off">Radio off</string>
+    <string name="sms_error_null_pdu">Invalid SMS data</string>
+    <string name="sms_error_no_service">No cellular service</string>
+    <string name="sms_error_limit">Outgoing SMS limit exceeded</string>
+    <string name="sms_error_fdn">Blocked by fixed dialing rules</string>
+    <string name="action_retry">Retry</string>
+    <string name="retry_message_title">Retry Message?</string>
+    <string name="retry_message_warning">Android reported that no SMS segments were submitted. Retry this message now?</string>
+    <string name="retry_queued">Message queued for retry.</string>
+    <string name="retry_not_available">Retry is no longer safe or available.</string>
+    <string name="status_retry_pending">Retry scheduled</string>
 
     <!-- Membership -->
     <string name="membership_title">Members</string>
@@ -44,7 +94,7 @@
     <!-- Add Member -->
     <string name="add_member_title">Add Member</string>
     <string name="hint_phone_number">Phone number</string>
-    <string name="hint_nickname">Nickname</string>
+    <string name="hint_nickname">Nickname (optional)</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="error_invalid_number">Invalid phone number format.</string>
@@ -120,6 +170,20 @@
     <!-- Notifications -->
     <string name="notification_channel_admin">Admin Messages</string>
     <string name="notification_admin_title">Admin message</string>
+    <string name="notification_channel_sms_status">SMS Delivery Problems</string>
+    <string name="notification_sms_failed_title">SMS failed to send</string>
+    <string name="notification_sms_failed_body">Android rejected an outgoing SMS (error %1$d). See Recent Activity for details.</string>
+    <string name="notification_delivery_failed_title">SMS was not delivered</string>
+    <string name="notification_delivery_failed_body">The carrier reported a delivery failure (error %1$d). See Recent Activity for details.</string>
+
+    <!-- Delivery status -->
+    <string name="delivery_status_error">%1$s (error %2$d)</string>
+    <string name="status_pending">Queued</string>
+    <string name="status_sending">Sending</string>
+    <string name="status_sent">Submitted</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_failed">Send failed</string>
+    <string name="status_delivery_failed">Delivery failed</string>
 
     <!-- Command reply / broadcast templates -->
     <string name="tpl_added_you">%1$s added you to %2$s Group. Reply #stop at anytime to opt out.</string>
@@ -136,11 +200,13 @@
     <string name="tpl_unauthorized">Only admins can use this command.</string>
     <string name="tpl_unknown_command">Unknown command. Reply #commands for a list of commands.</string>
     <string name="tpl_invalid_number">Invalid phone number format.</string>
+    <string name="tpl_rename_usage">Usage: #rename &lt;number&gt; &lt;new nickname&gt;</string>
+    <string name="tpl_member_not_found">No active member was found with that phone number.</string>
     <string name="tpl_relay_prefix">%1$s: %2$s</string>
     <string name="tpl_admin_relay_prefix">[Admin-only from %1$s]: %2$s</string>
     <string name="tpl_dm_prefix">[Admin]: %1$s</string>
     <string name="tpl_commands_list_common">Available commands:\n#commands - show this list\n#mute - pause messages\n#unmute - resume messages\n#stop - leave the group\n#list - list members\n#name &lt;new nickname&gt; - change your nickname\n#admin &lt;message&gt; - message admins only</string>
-    <string name="tpl_commands_list_admin_extra">\n(Admins) #add &lt;number&gt; &lt;nickname&gt; - add a member\n(Admins) #remove &lt;nickname or number&gt; - remove a member\n(Admins) #topic &lt;new name&gt; - change the group name</string>
+    <string name="tpl_commands_list_admin_extra">\n(Admins) #add &lt;number&gt; [nickname] - add a member\n(Admins) #remove &lt;nickname or number&gt; - remove a member\n(Admins) #rename &lt;number&gt; &lt;new nickname&gt; - rename a member\n(Admins) #topic &lt;new name&gt; - change the group name</string>
     <string name="tpl_list_you">(You)</string>
     <string name="tpl_list_admin">(admin)</string>
     <string name="default_added_by_admin">An Admin</string>

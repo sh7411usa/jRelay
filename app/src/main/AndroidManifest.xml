@@ -37,6 +37,7 @@
         <activity android:name=".AddMemberActivity" android:exported="false" />
         <activity android:name=".RateLimitActivity" android:exported="false" />
         <activity android:name=".SendGroupMessageActivity" android:exported="false" />
+        <activity android:name=".FailedMessagesActivity" android:exported="false" />
         <activity android:name=".LicenseActivity" android:exported="false" />
 
         <receiver
@@ -47,6 +48,13 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".sms.SmsStatusReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".sms.SmsRetryReceiver"
+            android:exported="false" />
 
         <service
             android:name=".sms.SmsSendService"

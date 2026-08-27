@@ -88,4 +88,22 @@ public class PhoneNumberUtils {
         }
         return null;
     }
+
+    /** Accepts number-first, number-last, or a phone number with no nickname. */
+    public static String[] splitNumberAndOptionalNickname(String text) {
+        String[] parts = splitLeadingNumberAndRest(text);
+        if (parts == null) {
+            parts = splitTrailingNumberAndRest(text);
+        }
+        if (parts == null && normalize(text) != null) {
+            return new String[]{text.trim(), ""};
+        }
+        return parts;
+    }
+
+    /** Privacy-friendly label used when a member is added without a nickname. */
+    public static String defaultNickname(String normalizedPhone) {
+        int suffixStart = Math.max(0, normalizedPhone.length() - 4);
+        return "Member " + normalizedPhone.substring(suffixStart);
+    }
 }
