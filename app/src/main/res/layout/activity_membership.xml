@@ -3,61 +3,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout
             style="@style/Widget.JRelay.Header"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-
             <TextView
                 style="@style/TextAppearance.JRelay.HeaderTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/membership_title" />
-
             <Button
                 android:id="@+id/button_membership_options"
                 style="@style/Widget.JRelay.Button.Small.Outline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="@string/menu_button_label" />
-
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
+            style="@style/Widget.JRelay.Page">
+            <LinearLayout
+                android:id="@+id/section_join_requests"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/text_join_requests_header"
+                    style="@style/Widget.JRelay.SectionTitle" />
+                <TextView
+                    style="@style/TextAppearance.JRelay.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/membership_join_requests_caption" />
+                <LinearLayout
+                    android:id="@+id/container_join_requests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
+            <TextView
+                style="@style/Widget.JRelay.SectionTitle"
+                android:text="@string/subgroup_section_title" />
+            <TextView
+                style="@style/TextAppearance.JRelay.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/membership_subgroups_caption" />
+            <TextView
+                android:id="@+id/text_subgroup_sizes"
+                style="@style/TextAppearance.JRelay.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
+            <Button
+                android:id="@+id/button_suggest_subgroups"
+                style="@style/Widget.JRelay.Button.Small.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_suggest_subgroups"
+                android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/button_merge_subgroups"
+                style="@style/Widget.JRelay.Button.Small.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_merge_subgroups"
+                android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/button_send_rosters"
+                style="@style/Widget.JRelay.Button.Small.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_send_rosters" />
+            <TextView
+                android:id="@+id/text_members_section_title"
+                style="@style/Widget.JRelay.SectionTitle" />
+            <TextView
+                style="@style/TextAppearance.JRelay.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/membership_members_caption" />
             <EditText
                 android:id="@+id/edit_search"
+                style="@style/Widget.JRelay.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_membership_search"
                 android:inputType="text"
-                android:layout_marginBottom="12dp" />
-
+                android:layout_marginBottom="8dp" />
             <Button
                 android:id="@+id/button_add_member"
                 style="@style/Widget.JRelay.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_member_shortcut"
-                android:layout_marginBottom="16dp" />
-
+                android:layout_marginBottom="12dp" />
             <LinearLayout
                 android:id="@+id/container_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

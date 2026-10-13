@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Member form -->
+    <string name="form_label_phone">מספר טלפון</string>
+    <string name="form_help_phone">מספר אמריקאי בן 10 ספרות, או + ואחריו קידומת המדינה והמספר.</string>
+    <string name="form_label_nickname">כינוי</string>
+    <string name="form_help_nickname">מוצג לפני ההודעות של חבר זה כשהן מועברות לקבוצה.</string>
+
+    <!-- Send to Group form -->
+    <string name="form_label_group_message">הודעה</string>
+    <string name="form_help_group_message">נשלחת ממכשיר זה כמסרון לכל חבר פעיל, ומסומנת כהודעה מהמנהל.</string>
+    <string name="send_group_cost_note">חברים פעילים שיקבלו את ההודעה: %1$d\nכל חבר מקבל מסרון נפרד, כך שהחבילה שלך מחויבת פעם אחת לכל חבר. הודעה ארוכה מתפצלת לכמה מסרונים, וכל חלק מחויב.</string>
+    <string name="send_group_cost_mms">הודעות קבוצתיות: %1$d (אחת לכל תת-קבוצה)\nמסרונים נפרדים: %2$d\nאנשים שיקבלו את ההודעה: %3$d\nהודעה ארוכה עדיין מתפצלת לכמה חלקים, וכל חלק מחויב.</string>
+    <string name="send_group_stopped_banner">הממסר עצור. לא ניתן לשלוח דבר עד שתפעילו אותו שוב בהגדרות.</string>
+
+    <!-- First-run consent screen -->
+    <string name="consent_permissions_title">ההרשאות שהאפליקציה מבקשת</string>
+    <string name="consent_perm_send_title">שליחת SMS (חובה)</string>
+    <string name="consent_perm_send_desc">מעבירה את ההודעה של כל חבר לשאר הקבוצה ומשיבה לפקודות.</string>
+    <string name="consent_perm_receive_title">קבלת SMS (חובה)</string>
+    <string name="consent_perm_receive_desc">מאפשרת למעביר לקבל את המסרונים שחברים שולחים למספר זה.</string>
+    <string name="consent_perm_mms_title">קריאת SMS וקבלת MMS</string>
+    <string name="consent_perm_mms_desc">קולטת תגובות שחברים כותבים בשרשורי קבוצה (MMS).</string>
+    <string name="consent_perm_notify_title">התראות</string>
+    <string name="consent_perm_notify_desc">מציגה את מצב המעביר ומזהירה על בעיות. מתבקשת ב-Android 13 ומעלה.</string>
+    <string name="consent_permissions_note">Android יבקש כל הרשאה אחרי שתבחרו \"אני מסכים/ה\". אפשר לשנות אותן מאוחר יותר בהגדרות Android.</string>
+    <string name="consent_license_title">רישיון</string>
+    <string name="consent_read_license">קריאת הרישיון</string>
+
+    <!-- Disband confirmation dialog -->
+    <string name="disband_danger_banner">פעולה לצמיתות. כל החברים וכל היסטוריית ההודעות יימחקו.</string>
+    <string name="disband_pin_shown_label">קוד PIN לאישור</string>
+    <string name="disband_pin_input_label">הקלידו את ה-PIN לאישור</string>
+
+    <!-- Refusing the relay phone's own number as a member -->
+    <string name="error_own_relay_number">זה המספר של טלפון המעביר עצמו. הוא לא יכול להיות חבר, כי אז הוא ישלח לעצמו כל הודעה.</string>
+    <string name="tpl_add_own_relay_number">לא נוסף: זה המספר של המעביר עצמו. הוא היה שולח לעצמו כל הודעה.</string>
+</resources>

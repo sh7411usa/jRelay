@@ -16,4 +16,12 @@ local.properties
 CLAUDE.md
 CLAUDE.local.md
 .claude/
+.work/
 Initial Prompt.txt
+# Internal planning docs and tests -- kept local, not published
+docs/
+app/src/test/
+app/src/androidTest/
+
+# All markdown kept local
+*.md

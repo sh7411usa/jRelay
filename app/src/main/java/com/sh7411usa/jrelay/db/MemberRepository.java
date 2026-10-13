@@ -3,15 +3,17 @@ package com.sh7411usa.jrelay.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.sh7411usa.jrelay.model.Member;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MemberRepository {
 
+    private static final String ORDER = "created_at ASC";
     private final DbHelper dbHelper;
 
     public MemberRepository(Context context) {
@@ -19,7 +21,6 @@ public class MemberRepository {
     }
 
     public long insert(String phoneE164, String nickname, boolean isAdmin, String addedBy) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("phone_e164", phoneE164);
         cv.put("nickname", nickname);
@@ -28,66 +29,48 @@ public class MemberRepository {
         cv.put("active", 1);
         cv.put("added_by", addedBy);
         cv.put("created_at", System.currentTimeMillis());
-        return db.insertOrThrow(DbHelper.TABLE_MEMBERS, null, cv);
+        return dbHelper.getWritableDatabase().insertOrThrow(DbHelper.TABLE_MEMBERS, null, cv);
     }
 
     public Member findByPhone(String phoneE164) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.query(DbHelper.TABLE_MEMBERS, null, "phone_e164 = ?", new String[]{phoneE164}, null, null, null);
-        Member m = null;
-        if (c.moveToFirst()) {
-            m = fromCursor(c);
-        }
-        c.close();
-        return m;
+        return first("phone_e164 = ?", phoneE164);
     }
 
     public Member findById(long id) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.query(DbHelper.TABLE_MEMBERS, null, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
-        Member m = null;
-        if (c.moveToFirst()) {
-            m = fromCursor(c);
-        }
-        c.close();
-        return m;
+        return first("id = ?", String.valueOf(id));
     }
 
     public Member findActiveByNickname(String nickname) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.query(DbHelper.TABLE_MEMBERS, null, "active = 1 AND nickname = ? COLLATE NOCASE",
-                new String[]{nickname}, null, null, null);
-        Member m = null;
-        if (c.moveToFirst()) {
-            m = fromCursor(c);
-        }
-        c.close();
-        return m;
+        return first("active = 1 AND nickname = ? COLLATE NOCASE", nickname);
     }
 
     public List<Member> getActiveMembers() {
-        return query("active = 1", null, "created_at ASC");
+        return query("active = 1", null);
     }
 
     public List<Member> getActiveAdmins() {
-        return query("active = 1 AND is_admin = 1", null, "created_at ASC");
+        return query("active = 1 AND is_admin = 1", null);
     }
 
+    public int countActiveAdmins() {
+        return count("active = 1 AND is_admin = 1");
+    }
+
+    public int countActiveMembers() {
+        return count("active = 1");
+    }
+
+    /** The one group-capacity rule. maxMembers <= 0 means no limit. */
+    public boolean isFull(int maxMembers) {
+        return maxMembers > 0 && countActiveMembers() >= maxMembers;
+    }
+
+    // Every query feeding a send path must include is_muted = 0 (getUnassignedActiveMembers is admin-only).
     public List<Member> getActiveRecipientsExcept(long excludeId) {
-        return query("active = 1 AND is_muted = 0 AND id != ?", new String[]{String.valueOf(excludeId)}, "created_at ASC");
+        return query("active = 1 AND is_muted = 0 AND id != ?", new String[]{String.valueOf(excludeId)});
     }
 
-    private List<Member> query(String selection, String[] args, String orderBy) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.query(DbHelper.TABLE_MEMBERS, null, selection, args, null, null, orderBy);
-        List<Member> list = new ArrayList<>();
-        while (c.moveToNext()) {
-            list.add(fromCursor(c));
-        }
-        c.close();
-        return list;
-    }
-
+    // Only way to grant admin; callers must check countActiveAdmins() before demoting.
     public void setAdmin(long id, boolean isAdmin) {
         updateColumn(id, "is_admin", isAdmin ? 1 : 0);
     }
@@ -97,30 +80,27 @@ public class MemberRepository {
     }
 
     public void setNickname(long id, String nickname) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("nickname", nickname);
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        update(id, cv);
     }
 
     public void setPhone(long id, String phoneE164) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("phone_e164", phoneE164);
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        update(id, cv);
     }
 
+    // Does NOT guard against zero active admins; callers must check countActiveAdmins() first.
     public void softRemove(long id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("active", 0);
         cv.put("removed_at", System.currentTimeMillis());
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        cv.put("is_admin", 0);
+        update(id, cv);
     }
 
-    /** Rejoins a previously soft-removed member under the same row (same phone number, unique in the table). */
     public void reactivate(long id, String nickname, String addedBy) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("nickname", nickname);
         cv.put("added_by", addedBy);
@@ -128,55 +108,44 @@ public class MemberRepository {
         cv.put("is_muted", 0);
         cv.put("active", 1);
         cv.putNull("removed_at");
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        cv.putNull("last_post_received_id");
+        // Rejoin comes back unassigned: the old sub-group may be full or merged away.
+        cv.putNull("subgroup_id");
+        update(id, cv);
     }
 
-    /** Sets a custom per-day relay cap for this member, independent of the shared group pool. A null value means unlimited. */
     public void setDailyLimitOverride(long id, Integer value) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("daily_limit_custom", 1);
-        if (value != null) {
-            cv.put("daily_limit_value", value);
-        } else {
-            cv.putNull("daily_limit_value");
-        }
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
-    }
-
-    /** Reverts this member to drawing only from the shared group pool (no personal cap). */
-    public void clearDailyLimitOverride(long id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("daily_limit_custom", 0);
-        cv.putNull("daily_limit_value");
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
-    }
-
-    /** Writes `value` as every active member's custom daily cap (enabling it), or only for members without one yet. */
-    public void bulkSetDailyLimit(int value, boolean onlyNonCustomized) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("daily_limit_custom", 1);
         cv.put("daily_limit_value", value);
-        String selection = onlyNonCustomized ? "active = 1 AND daily_limit_custom = 0" : "active = 1";
-        db.update(DbHelper.TABLE_MEMBERS, cv, selection, null);
+        update(id, cv);
     }
 
-    /** Raw setter for this member's today-bonus (extra allowance added via #override) and the window it belongs to. */
+    public void clearDailyLimitOverride(long id) {
+        ContentValues cv = new ContentValues();
+        cv.put("daily_limit_custom", 0);
+        cv.putNull("daily_limit_value");
+        update(id, cv);
+    }
+
+    public void bulkSetDailyLimit(int value, boolean onlyNonCustomized) {
+        ContentValues cv = new ContentValues();
+        cv.put("daily_limit_custom", 1);
+        cv.put("daily_limit_value", value);
+        dbHelper.getWritableDatabase().update(DbHelper.TABLE_MEMBERS, cv,
+                onlyNonCustomized ? "active = 1 AND daily_limit_custom = 0" : "active = 1", null);
+    }
+
     public void setDailyLimitBonusState(long id, int bonus, long windowStart) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("daily_limit_bonus", bonus);
         cv.put("daily_limit_bonus_window_start", windowStart);
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        update(id, cv);
     }
 
-    /** Increments this member's cumulative failed-send count and returns the new value. */
     public int incrementFailedCount(long id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.execSQL("UPDATE " + DbHelper.TABLE_MEMBERS + " SET failed_count = failed_count + 1 WHERE id = ?",
-                new Object[]{id});
+        dbHelper.getWritableDatabase().execSQL("UPDATE " + DbHelper.TABLE_MEMBERS
+                + " SET failed_count = failed_count + 1 WHERE id = ?", new Object[]{id});
         Member updated = findById(id);
         return updated != null ? updated.failedCount : 0;
     }
@@ -185,14 +154,96 @@ public class MemberRepository {
         updateColumn(id, "failed_count", 0);
     }
 
-    private void updateColumn(long id, String column, int value) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void setLastPostReceivedIdForAll(List<Long> memberIds, Long postLogId) {
+        if (memberIds == null || memberIds.isEmpty()) return;
         ContentValues cv = new ContentValues();
-        cv.put(column, value);
-        db.update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+        cv.put("last_post_received_id", postLogId);
+        int chunkSize = 500;
+        for (int start = 0; start < memberIds.size(); start += chunkSize) {
+            List<Long> chunk = memberIds.subList(start, Math.min(start + chunkSize, memberIds.size()));
+            StringBuilder placeholders = new StringBuilder();
+            String[] args = new String[chunk.size()];
+            for (int i = 0; i < chunk.size(); i++) {
+                placeholders.append(i > 0 ? ",?" : "?");
+                args[i] = String.valueOf(chunk.get(i));
+            }
+            dbHelper.getWritableDatabase().update(DbHelper.TABLE_MEMBERS, cv, "id IN (" + placeholders + ")", args);
+        }
     }
 
-    private Member fromCursor(Cursor c) {
+    public void assignSubgroup(long id, Long subgroupId) {
+        ContentValues cv = new ContentValues();
+        cv.put("subgroup_id", subgroupId);
+        update(id, cv);
+    }
+
+    public List<Member> getSubgroupMembers(long subgroupId) {
+        return query("active = 1 AND is_muted = 0 AND subgroup_id = ?", new String[]{String.valueOf(subgroupId)});
+    }
+
+    // Includes muted members: answers "who is in this MMS thread", used for rosters and merge sizing.
+    public List<Member> getActiveSubgroupMembers(long subgroupId) {
+        return query("active = 1 AND subgroup_id = ?", new String[]{String.valueOf(subgroupId)});
+    }
+
+    public List<Long> getDistinctSubgroupIds() {
+        List<Long> ids = new ArrayList<>();
+        try (Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT DISTINCT subgroup_id FROM " + DbHelper.TABLE_MEMBERS
+                + " WHERE active = 1 AND subgroup_id IS NOT NULL ORDER BY subgroup_id ASC", null)) {
+            while (c.moveToNext()) ids.add(c.getLong(0));
+        }
+        return ids;
+    }
+
+    public Map<Long, Integer> countMembersPerSubgroup() {
+        Map<Long, Integer> counts = new LinkedHashMap<>();
+        try (Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT subgroup_id, COUNT(*) FROM " + DbHelper.TABLE_MEMBERS
+                + " WHERE active = 1 AND subgroup_id IS NOT NULL GROUP BY subgroup_id", null)) {
+            while (c.moveToNext()) counts.put(c.getLong(0), c.getInt(1));
+        }
+        return counts;
+    }
+
+    // Admin-only (includes muted members so they stay assignable); NOT for sending.
+    public List<Member> getUnassignedActiveMembers() {
+        return query("active = 1 AND subgroup_id IS NULL", null);
+    }
+
+    public List<Member> getUnassignedActiveUnmutedMembers() {
+        return query("active = 1 AND is_muted = 0 AND subgroup_id IS NULL", null);
+    }
+
+    private List<Member> query(String selection, String[] args) {
+        List<Member> list = new ArrayList<>();
+        try (Cursor c = dbHelper.getReadableDatabase().query(DbHelper.TABLE_MEMBERS, null, selection, args, null, null, ORDER)) {
+            while (c.moveToNext()) list.add(fromCursor(c));
+        }
+        return list;
+    }
+
+    private Member first(String selection, String arg) {
+        try (Cursor c = dbHelper.getReadableDatabase().query(DbHelper.TABLE_MEMBERS, null, selection, new String[]{arg}, null, null, null)) {
+            return c.moveToFirst() ? fromCursor(c) : null;
+        }
+    }
+
+    private int count(String where) {
+        try (Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT COUNT(*) FROM " + DbHelper.TABLE_MEMBERS + " WHERE " + where, null)) {
+            return c.moveToFirst() ? c.getInt(0) : 0;
+        }
+    }
+
+    private void update(long id, ContentValues cv) {
+        dbHelper.getWritableDatabase().update(DbHelper.TABLE_MEMBERS, cv, "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    private void updateColumn(long id, String column, int value) {
+        ContentValues cv = new ContentValues();
+        cv.put(column, value);
+        update(id, cv);
+    }
+
+    private static Member fromCursor(Cursor c) {
         Member m = new Member();
         m.id = c.getLong(c.getColumnIndexOrThrow("id"));
         m.phoneE164 = c.getString(c.getColumnIndexOrThrow("phone_e164"));
@@ -200,20 +251,20 @@ public class MemberRepository {
         m.isAdmin = c.getInt(c.getColumnIndexOrThrow("is_admin")) != 0;
         m.isMuted = c.getInt(c.getColumnIndexOrThrow("is_muted")) != 0;
         m.active = c.getInt(c.getColumnIndexOrThrow("active")) != 0;
-        m.addedBy = c.getString(c.getColumnIndexOrThrow("added_by"));
         m.createdAt = c.getLong(c.getColumnIndexOrThrow("created_at"));
-        int removedIdx = c.getColumnIndexOrThrow("removed_at");
-        m.removedAt = c.isNull(removedIdx) ? null : c.getLong(removedIdx);
         m.dailyLimitCustom = c.getInt(c.getColumnIndexOrThrow("daily_limit_custom")) != 0;
-        m.dailyLimitValue = getNullableInt(c, "daily_limit_value");
+        int idx = c.getColumnIndexOrThrow("daily_limit_value");
+        m.dailyLimitValue = c.isNull(idx) ? null : c.getInt(idx);
         m.dailyLimitBonus = c.getInt(c.getColumnIndexOrThrow("daily_limit_bonus"));
         m.dailyLimitBonusWindowStart = c.getLong(c.getColumnIndexOrThrow("daily_limit_bonus_window_start"));
         m.failedCount = c.getInt(c.getColumnIndexOrThrow("failed_count"));
+        m.lastPostReceivedId = nullableLong(c, "last_post_received_id");
+        m.subgroupId = nullableLong(c, "subgroup_id");
         return m;
     }
 
-    private Integer getNullableInt(Cursor c, String column) {
+    private static Long nullableLong(Cursor c, String column) {
         int idx = c.getColumnIndexOrThrow(column);
-        return c.isNull(idx) ? null : c.getInt(idx);
+        return c.isNull(idx) ? null : c.getLong(idx);
     }
 }

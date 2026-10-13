@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="member_detail_badge_admin">מנהל</string>
+    <string name="member_detail_badge_muted">מושתק</string>
+    <string name="member_detail_section_stats">סטטיסטיקה</string>
+    <string name="member_detail_section_contact">יצירת קשר</string>
+    <string name="member_detail_section_details">פרטים</string>
+    <string name="member_detail_section_permissions">הרשאות</string>
+    <string name="member_detail_section_remove">הסרת חבר</string>
+    <string name="member_detail_activity_empty">אין עדיין הודעות מחבר זה.</string>
+    <string name="member_detail_dm_stopped">השליחה מושבתת כל עוד הממסר עצור.</string>
+</resources>

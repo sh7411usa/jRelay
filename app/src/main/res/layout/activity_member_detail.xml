@@ -10,284 +10,295 @@
         android:orientation="vertical">
 
         <LinearLayout style="@style/Widget.JRelay.Header">
-
             <TextView
                 android:id="@+id/text_nickname"
                 style="@style/TextAppearance.JRelay.HeaderTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <TextView
                 android:id="@+id/text_number"
                 style="@style/TextAppearance.JRelay.HeaderSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp" />
-
+                android:textAlignment="viewStart"
+                android:textDirection="ltr" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+        <LinearLayout style="@style/Widget.JRelay.Page">
+
+            <LinearLayout
+                android:id="@+id/container_member_badges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+                <TextView
+                    android:id="@+id/text_badge_admin"
+                    style="@style/Widget.JRelay.Badge.Admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="@string/member_detail_badge_admin"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/text_badge_muted"
+                    style="@style/Widget.JRelay.Badge.Muted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="@string/member_detail_badge_muted"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/text_badge_subgroup"
+                    style="@style/Widget.JRelay.Badge.Live"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/text_member_meta"
                 style="@style/TextAppearance.JRelay.Caption"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp" />
+                android:layout_height="wrap_content" />
 
-            <GridLayout
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/member_detail_section_stats" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginBottom="20dp">
-
+                android:layout_height="wrap_content">
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
                     android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp">
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/text_stat_sent"
                         style="@style/TextAppearance.JRelay.TileValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <TextView
                         style="@style/TextAppearance.JRelay.TileLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tile_messages_sent" />
                 </LinearLayout>
-
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
                     android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp">
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/text_stat_received"
                         style="@style/TextAppearance.JRelay.TileValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <TextView
                         style="@style/TextAppearance.JRelay.TileLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tile_messages_received" />
                 </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
                     android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp">
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp">
                     <TextView
                         android:id="@+id/text_stat_today"
                         style="@style/TextAppearance.JRelay.TileValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <TextView
                         style="@style/TextAppearance.JRelay.TileLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tile_messages_today" />
                 </LinearLayout>
-
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
                     android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp">
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp">
                     <TextView
                         android:id="@+id/text_stat_activity_level"
                         style="@style/TextAppearance.JRelay.TileValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <TextView
                         style="@style/TextAppearance.JRelay.TileLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tile_activity_level" />
                 </LinearLayout>
+            </LinearLayout>
 
-            </GridLayout>
-
-            <Button
-                android:id="@+id/button_toggle_admin"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_toggle_mute"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
-
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/member_detail_section_contact" />
             <Button
                 android:id="@+id/button_send_dm"
-                style="@style/Widget.JRelay.Button.Outline"
+                style="@style/Widget.JRelay.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_send_dm"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_edit_nickname"
-                style="@style/Widget.JRelay.Button.Outline"
+                android:layout_marginBottom="8dp"
+                android:text="@string/action_send_dm" />
+            <TextView
+                android:id="@+id/text_dm_stopped"
+                style="@style/TextAppearance.JRelay.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_edit_nickname"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_edit_number"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_edit_number"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_export_contact"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_export_contact"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_call"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_call"
-                android:layout_marginBottom="10dp" />
-
+                android:layout_marginBottom="8dp"
+                android:text="@string/member_detail_dm_stopped"
+                android:visibility="gone" />
             <Button
                 android:id="@+id/button_text"
                 style="@style/Widget.JRelay.Button.Outline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_text"
-                android:layout_marginBottom="10dp" />
-
+                android:layout_marginBottom="8dp"
+                android:text="@string/action_text" />
             <Button
-                android:id="@+id/button_remove"
-                style="@style/Widget.JRelay.Button.Danger"
+                android:id="@+id/button_call"
+                style="@style/Widget.JRelay.Button.Outline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_remove"
-                android:layout_marginBottom="24dp" />
+                android:text="@string/action_call" />
 
-            <TextView
-                style="@style/TextAppearance.JRelay.Subtitle"
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/member_detail_section_details" />
+            <Button
+                android:id="@+id/button_edit_nickname"
+                style="@style/Widget.JRelay.Button.Outline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/section_daily_limit"
-                android:layout_marginBottom="6dp" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/action_edit_nickname" />
+            <Button
+                android:id="@+id/button_edit_number"
+                style="@style/Widget.JRelay.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/action_edit_number" />
+            <Button
+                android:id="@+id/button_export_contact"
+                style="@style/Widget.JRelay.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_export_contact" />
 
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/member_detail_section_permissions" />
+            <Button
+                android:id="@+id/button_toggle_admin"
+                style="@style/Widget.JRelay.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/button_toggle_mute"
+                style="@style/Widget.JRelay.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/section_daily_limit" />
             <TextView
                 style="@style/TextAppearance.JRelay.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/daily_limit_member_desc"
-                android:layout_marginBottom="10dp" />
-
+                android:layout_marginBottom="8dp"
+                android:text="@string/daily_limit_member_desc" />
             <CheckBox
                 android:id="@+id/checkbox_custom_daily_limit"
                 style="@style/Widget.JRelay.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/checkbox_custom_daily_limit"
-                android:layout_marginBottom="8dp" />
-
+                android:layout_marginBottom="4dp"
+                android:text="@string/checkbox_custom_daily_limit" />
             <LinearLayout
                 android:id="@+id/container_daily_limit_fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <CheckBox
                     android:id="@+id/checkbox_daily_limit_unlimited"
                     style="@style/Widget.JRelay.CheckBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkbox_daily_limit_unlimited"
-                    android:layout_marginBottom="8dp" />
-
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/checkbox_daily_limit_unlimited" />
                 <LinearLayout
                     android:id="@+id/container_daily_limit_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <TextView
-                        style="@style/TextAppearance.JRelay.Label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/Widget.JRelay.FormLabel"
+                        android:labelFor="@+id/edit_daily_limit_value"
                         android:text="@string/label_daily_limit_value" />
-
                     <EditText
                         android:id="@+id/edit_daily_limit_value"
+                        style="@style/Widget.JRelay.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:hint="@string/hint_daily_limit_value"
-                        android:inputType="number"
-                        android:layout_marginBottom="8dp" />
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
                 </LinearLayout>
             </LinearLayout>
-
             <TextView
                 android:id="@+id/text_daily_limit_usage"
                 style="@style/TextAppearance.JRelay.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
-
+                android:layout_marginBottom="8dp" />
             <Button
                 android:id="@+id/button_save_daily_limit"
                 style="@style/Widget.JRelay.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_save_daily_limit"
-                android:layout_marginBottom="10dp" />
-
+                android:text="@string/action_save_daily_limit" />
             <Button
                 android:id="@+id/button_override_daily_limit"
                 style="@style/Widget.JRelay.Button.Outline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/action_override_daily_limit"
-                android:visibility="gone"
-                android:layout_marginBottom="24dp" />
+                android:visibility="gone" />
 
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/recent_activity" />
             <TextView
-                style="@style/TextAppearance.JRelay.Subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/recent_activity"
-                android:layout_marginBottom="8dp" />
-
+                android:id="@+id/text_member_activity_empty"
+                style="@style/Widget.JRelay.EmptyState"
+                android:text="@string/member_detail_activity_empty"
+                android:visibility="gone" />
             <LinearLayout
                 android:id="@+id/container_member_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
+            <View
+                style="@style/Widget.JRelay.Divider"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp" />
+            <TextView style="@style/Widget.JRelay.SectionTitle" android:text="@string/member_detail_section_remove" />
+            <Button
+                android:id="@+id/button_remove"
+                style="@style/Widget.JRelay.Button.Danger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@string/action_remove" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

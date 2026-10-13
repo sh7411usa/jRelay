@@ -8,13 +8,36 @@
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <!-- Needed ONLY to read inbound group-MMS replies out of content://mms (see
+         sms/mms/MmsReader). When a sub-group is a real group thread, a member's reply goes
+         peer-to-peer to the whole thread; jRelay is a participant but only learns what was said
+         by reading the system MMS store. Without this the other sub-groups never hear it and the
+         group silently fragments.
+
+         Reading content://mms requires READ_SMS but is NOT reserved to the default SMS app, so
+         jRelay can stay a non-default app. Note this permission must also be REQUESTED at runtime
+         before inbound ingestion can work - declaring it is necessary but not sufficient, and the
+         natural moment to ask is when the owner switches delivery mode to group threads, since
+         that is the only mode where it is used. -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <!-- Lets WapPushReceiver be notified the moment an MMS notification arrives, so
+         MmsIngestService can be woken up to scan once the stock app finishes downloading it. -->
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Lets the Dashboard ask the owner to exempt jRelay from battery optimisation, so Samsung
+         battery management stops killing MmsIngestService and the watchdog job may start it. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -48,9 +71,64 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".sms.BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- An app update stops our services and nothing restarts them. Needs no
+                     permission and is exempt from the implicit-broadcast limits. -->
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".sms.SentReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".sms.mms.MmsSentReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".sms.mms.WapPushReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".sms.SmsSendService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Relays SMS to group members on a paced schedule; the send must continue while the screen is off." />
+        </service>
+
+        <service
+            android:name=".sms.mms.MmsIngestService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Watches for inbound group MMS replies so they can be relayed to the other sub-groups; must continue while the screen is off." />
+        </service>
+
+        <service
+            android:name=".sms.WatchdogJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <provider
+            android:name=".sms.mms.MmsFileProvider"
+            android:authorities="com.sh7411usa.jrelay.mmsfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" />
 
     </application>
 

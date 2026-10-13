@@ -13,6 +13,9 @@
         android:id="@+id/menu_send_to_group"
         android:title="@string/send_group_message_shortcut" />
     <item
-        android:id="@+id/menu_toggle_group_mode"
+        android:id="@+id/menu_switch_mode_a"
         android:title="@string/menu_switch_to_announcement" />
+    <item
+        android:id="@+id/menu_switch_mode_b"
+        android:title="@string/menu_switch_to_reply" />
 </menu>

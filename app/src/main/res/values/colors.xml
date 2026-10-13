@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <!-- Brand -->
-    <color name="primary">#2F5FE0</color>
-    <color name="primary_dark">#1E44B8</color>
-    <color name="primary_light">#E7EDFC</color>
+    <color name="primary">#1F57C3</color>
+    <color name="primary_dark">#17449C</color>
+    <color name="primary_light">#E5ECFA</color>
     <color name="on_primary">#FFFFFF</color>
-
-    <!-- Surfaces -->
-    <color name="background">#F4F5F9</color>
+    <color name="accent_secondary">#3F5B86</color>
+    <color name="background">#F3F4F7</color>
     <color name="surface">#FFFFFF</color>
-    <color name="outline">#DCDFE8</color>
-    <color name="divider">#E4E6EE</color>
-
-    <!-- Text -->
-    <color name="text_primary">#1B1E27</color>
-    <color name="text_secondary">#6B7080</color>
-    <color name="text_hint">#9AA0B0</color>
-
-    <!-- Status -->
-    <color name="success">#1E9E63</color>
-    <color name="success_light">#E4F6EC</color>
-    <color name="warning">#B26A00</color>
-    <color name="warning_light">#FCEEDA</color>
-    <color name="danger">#C4392F</color>
-    <color name="danger_light">#FBE7E5</color>
+    <color name="outline">#D3D7DF</color>
+    <color name="divider">#E1E4EA</color>
+    <color name="input_outline">#858D9C</color>
+    <color name="text_primary">#15181E</color>
+    <color name="text_secondary">#525968</color>
+    <color name="text_hint">#6B7282</color>
+    <color name="success">#15784A</color>
+    <color name="success_light">#E2F2E9</color>
+    <color name="on_success_light">#0F5C38</color>
+    <color name="warning">#8A5100</color>
+    <color name="warning_light">#FBEEDA</color>
+    <color name="on_warning_light">#6B3E00</color>
+    <color name="danger">#B3261E</color>
+    <color name="danger_dark">#8C1D17</color>
+    <color name="danger_light">#FCE8E6</color>
+    <color name="on_danger_light">#8C1D17</color>
     <color name="on_danger">#FFFFFF</color>
-
-    <color name="disband_red">#C4392F</color>
-    <color name="search_highlight">#FFF1A6</color>
-
-    <!-- Focus / press feedback for rows and other non-button touch targets -->
-    <color name="press_highlight">#4D2F5FE0</color>
+    <color name="info">#1F57C3</color>
+    <color name="info_light">#E5ECFA</color>
+    <color name="on_info_light">#123E91</color>
+    <color name="search_highlight">#FFE68A</color>
+    <color name="focus_ring">#0E2F73</color>
+    <color name="focus_fill">#D6E2F8</color>
+    <color name="pressed_fill">#E9EEF7</color>
+    <color name="disabled_fill">#E2E5EA</color>
+    <color name="disabled_text">#6B7282</color>
 </resources>

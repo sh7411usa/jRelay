@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Member form -->
+    <string name="form_label_phone">Phone number</string>
+    <string name="form_help_phone">A 10-digit US number, or + followed by the country code and number.</string>
+    <string name="form_label_nickname">Nickname</string>
+    <string name="form_help_nickname">Shown before this member\'s messages when they are relayed to the group.</string>
+
+    <!-- Send to Group form -->
+    <string name="form_label_group_message">Message</string>
+    <string name="form_help_group_message">Sent from this device as a text to every active member, marked as coming from the admin.</string>
+    <string name="send_group_cost_note">Active members receiving this: %1$d\nEach member gets a separate text, so your plan is charged once per member. A long message is split into several texts, and each part is charged.</string>
+    <string name="send_group_cost_mms">Group messages: %1$d (one per sub-group)\nIndividual texts: %2$d\nPeople reached: %3$d\nA long message still splits into several parts, and each part is charged.</string>
+    <string name="send_group_stopped_banner">The relay is stopped. Nothing can be sent until you start it again in Settings.</string>
+
+    <!-- First-run consent screen -->
+    <string name="consent_permissions_title">Permissions this app asks for</string>
+    <string name="consent_perm_send_title">Send SMS (required)</string>
+    <string name="consent_perm_send_desc">Forwards each member\'s message to the rest of the group and replies to commands.</string>
+    <string name="consent_perm_receive_title">Receive SMS (required)</string>
+    <string name="consent_perm_receive_desc">Lets the relay get the texts members send to this number.</string>
+    <string name="consent_perm_mms_title">Read SMS and receive MMS</string>
+    <string name="consent_perm_mms_desc">Picks up replies members post in group (MMS) threads.</string>
+    <string name="consent_perm_notify_title">Notifications</string>
+    <string name="consent_perm_notify_desc">Shows the relay\'s status and warns you about problems. Asked on Android 13 and later.</string>
+    <string name="consent_permissions_note">Android asks for each one after you select I Agree. You can change them later in Android settings.</string>
+    <string name="consent_license_title">License</string>
+    <string name="consent_read_license">Read the license</string>
+
+    <!-- Disband confirmation dialog -->
+    <string name="disband_danger_banner">Permanent. Every member and all message history will be erased.</string>
+    <string name="disband_pin_shown_label">Confirmation PIN</string>
+    <string name="disband_pin_input_label">Type the PIN to confirm</string>
+
+    <!-- Refusing the relay phone's own number as a member -->
+    <string name="error_own_relay_number">That is this relay phone\'s own number. It can\'t be a member, because it would send every post to itself.</string>
+    <string name="tpl_add_own_relay_number">Not added: that is the relay\'s own number. It would send every post to itself.</string>
+</resources>

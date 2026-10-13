@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="member_detail_badge_admin">אדמין</string>
+    <string name="member_detail_badge_muted">פארשטומט</string>
+    <string name="member_detail_section_stats">סטאטיסטיק</string>
+    <string name="member_detail_section_contact">קאנטאקט</string>
+    <string name="member_detail_section_details">פרטים</string>
+    <string name="member_detail_section_permissions">בארעכטיגונגען</string>
+    <string name="member_detail_section_remove">אראפנעמען מיטגליד</string>
+    <string name="member_detail_activity_empty">נאך נישט קיין ידיעות פון דעם מיטגליד.</string>
+    <string name="member_detail_dm_stopped">שיקן איז אָפּגעשטעלט אזוי לאנג ווי דער רעלעי איז אויסגעלאשן.</string>
+</resources>

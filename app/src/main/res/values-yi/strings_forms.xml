@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Member form -->
+    <string name="form_label_phone">טעלעפאן נומער</string>
+    <string name="form_help_phone">אן אמעריקאנער נומער פון 10 ציפערן, אָדער + און דערנאך די לאנד-קאוד און דער נומער.</string>
+    <string name="form_label_nickname">צונאמען</string>
+    <string name="form_help_nickname">ווערט געוויזן פאר די ידיעות פון דעם מיטגליד ווען זיי ווערן אריבערגעשיקט צו דער גרופע.</string>
+
+    <!-- Send to Group form -->
+    <string name="form_label_group_message">ידיעה</string>
+    <string name="form_help_group_message">ווערט געשיקט פון דעם מכשיר ווי א טעקסט צו יעדן אקטיוון מיטגליד, אנגעצייכנט ווי פון דעם אדמיניסטראטאר.</string>
+    <string name="send_group_cost_note">אקטיווע מיטגלידער וואס וועלן דאס באקומען: %1$d\nיעדער מיטגליד באקומט א באזונדערן טעקסט, אזוי ווערט אייער פּלאַן באצאלט איינמאל פאר יעדן מיטגליד. א לאנגע ידיעה ווערט צעטיילט אין עטלעכע טעקסטן, און יעדער טייל ווערט באצאלט.</string>
+    <string name="send_group_cost_mms">גרופע ידיעות: %1$d (איינע פאר יעדער אונטער-גרופע)\nבאזונדערע טעקסטן: %2$d\nמענטשן וואס וועלן דאס באקומען: %3$d\nא לאנגע ידיעה ווערט נאך אלץ צעטיילט אין עטלעכע טיילן, און יעדער טייל ווערט באצאלט.</string>
+    <string name="send_group_stopped_banner">דער רעלעי איז אויסגעלאשן. מען קען גארנישט שיקן ביז איר צינדט אים ווידער אָן אין די איינשטעלונגען.</string>
+
+    <!-- First-run consent screen -->
+    <string name="consent_permissions_title">די ערלויבענישן וואס די אפליקאציע בעט</string>
+    <string name="consent_perm_send_title">שיקן SMS (נויטיק)</string>
+    <string name="consent_perm_send_desc">שיקט אריבער יעדן מיטגלידס ידיעה צו דער רעשט פון דער גרופע און ענטפערט אויף באפעלן.</string>
+    <string name="consent_perm_receive_title">באקומען SMS (נויטיק)</string>
+    <string name="consent_perm_receive_desc">לאזט דעם רעלעי באקומען די טעקסטן וואס מיטגלידער שיקן צו דעם נומער.</string>
+    <string name="consent_perm_mms_title">לייענען SMS און באקומען MMS</string>
+    <string name="consent_perm_mms_desc">כאפט אויף ענטפערס וואס מיטגלידער שרייבן אין גרופע (MMS) שמועסן.</string>
+    <string name="consent_perm_notify_title">מודעות</string>
+    <string name="consent_perm_notify_desc">ווייזט דעם רעלעיס מצב און ווארנט וועגן פראבלעמען. ווערט געבעטן אויף Android 13 און העכער.</string>
+    <string name="consent_permissions_note">Android וועט בעטן יעדע איינע נאכדעם וואס איר קלייבט \"איך שטים צו\". איר קענט זיי שפעטער טוישן אין די Android איינשטעלונגען.</string>
+    <string name="consent_license_title">ליצענץ</string>
+    <string name="consent_read_license">לייענען די ליצענץ</string>
+
+    <!-- Disband confirmation dialog -->
+    <string name="disband_danger_banner">אויף שטענדיק. אלע מיטגלידער און די גאנצע היסטאריע פון ידיעות וועלן ווערן אויסגעמעקט.</string>
+    <string name="disband_pin_shown_label">באשטעטיקונג PIN</string>
+    <string name="disband_pin_input_label">שרייבט אריין דעם PIN צו באשטעטיקן</string>
+
+    <!-- Refusing the relay phone's own number as a member -->
+    <string name="error_own_relay_number">דאס איז דעם רעלעי טעלעפאנס אייגענער נומער. ער קען נישט זיין א מיטגליד, ווייל ער וועט שיקן יעדע ידיעה צו זיך אליין.</string>
+    <string name="tpl_add_own_relay_number">נישט צוגעלייגט: דאס איז דעם רעלעיס אייגענער נומער. ער וואלט געשיקט יעדע ידיעה צו זיך אליין.</string>
+</resources>

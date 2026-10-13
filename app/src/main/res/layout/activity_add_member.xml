@@ -1,68 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout style="@style/Widget.JRelay.Header">
-            <TextView
-                style="@style/TextAppearance.JRelay.HeaderTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <TextView style="@style/TextAppearance.JRelay.HeaderTitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="@string/add_member_title" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/text_error"
-                style="@style/TextAppearance.JRelay.Caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/danger"
-                android:visibility="gone"
-                android:layout_marginBottom="8dp" />
-
-            <EditText
-                android:id="@+id/edit_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_phone_number"
-                android:inputType="textNoSuggestions"
-                android:layout_marginBottom="12dp" />
-
-            <EditText
-                android:id="@+id/edit_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_nickname"
-                android:inputType="textPersonName|textCapWords"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/button_save"
-                style="@style/Widget.JRelay.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_save"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_cancel"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_cancel" />
-
+        <LinearLayout style="@style/Widget.JRelay.Page">
+            <TextView android:id="@+id/text_error" style="@style/Widget.JRelay.Banner.Danger"
+                android:layout_marginBottom="12dp" android:visibility="gone" />
+            <TextView style="@style/Widget.JRelay.FormLabel"
+                android:labelFor="@+id/edit_phone_number" android:text="@string/form_label_phone" />
+            <EditText android:id="@+id/edit_phone_number"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="phone" android:importantForAutofill="no"
+                android:textDirection="ltr" android:textAlignment="viewStart"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/edit_nickname" android:nextFocusForward="@+id/edit_nickname" />
+            <TextView style="@style/TextAppearance.JRelay.Caption"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" android:layout_marginBottom="16dp"
+                android:text="@string/form_help_phone" />
+            <TextView style="@style/Widget.JRelay.FormLabel"
+                android:labelFor="@+id/edit_nickname" android:text="@string/form_label_nickname" />
+            <EditText android:id="@+id/edit_nickname"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords" android:importantForAutofill="no"
+                android:imeOptions="actionDone" android:nextFocusDown="@+id/button_save" />
+            <TextView style="@style/TextAppearance.JRelay.Caption"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" android:text="@string/form_help_nickname" />
+            <LinearLayout style="@style/Widget.JRelay.ButtonBar">
+                <Button android:id="@+id/button_save" style="@style/Widget.JRelay.Button"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" android:text="@string/action_save" />
+                <Button android:id="@+id/button_cancel" style="@style/Widget.JRelay.Button.Outline"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/action_cancel" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

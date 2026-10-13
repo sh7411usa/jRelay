@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="membership_join_requests_caption">די מענטשן האבן געשיקט ‎#join. באשטעטיקן לייגט זיי צו צו דער גרופע; אָפּזאָגן לייגט זיי נישט צו.</string>
+    <string name="membership_subgroups_caption">קלענערע גרופע-שמועסן פאר שיקן לויט תת-גרופע. די געצייג אונטן ארבעטן אויף אסאך מיטגלידער אויף איינמאל.</string>
+    <string name="membership_members_count">מיטגלידער-ליסטע (%1$d)</string>
+    <string name="membership_members_caption">קלייבט א נאמען צו זען פרטים. קלייבט זיין גרופע-צייכן צו צוטיילן א תת-גרופע.</string>
+    <string name="membership_rosters_group_only">רשימות ווערן נאר געשיקט ווען שיקן אין גרופעס איז איינגעשטעלט.</string>
+    <string name="membership_rosters_stopped">דער רעלעי איז אויסגעלאשן. מען קען גארנישט שיקן.</string>
+</resources>
