@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="membership_join_requests_caption">These people texted #join. Approve adds them to the group; Decline turns them away.</string>
+    <string name="membership_subgroups_caption">Smaller group threads for sending by sub-group. Tools below work on many members at once.</string>
+    <string name="membership_members_count">Member list (%1$d)</string>
+    <string name="membership_members_caption">Select a name for details. Select its group badge to assign a sub-group.</string>
+    <string name="membership_rosters_group_only">Rosters are only sent when group delivery is on.</string>
+    <string name="membership_rosters_stopped">The relay is stopped. Nothing can be sent.</string>
+</resources>

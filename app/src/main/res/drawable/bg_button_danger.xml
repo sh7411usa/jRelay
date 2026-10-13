@@ -2,21 +2,64 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/outline" />
-            <corners android:radius="14dp" />
+            <solid android:color="@color/disabled_fill" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
+    <item android:state_focused="true" android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/focus_ring" />
+                    <corners android:radius="8dp" />
+                </shape>
+            </item>
+            <item android:top="3dp" android:bottom="3dp" android:start="3dp" android:end="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/surface" />
+                    <corners android:radius="5dp" />
+                </shape>
+            </item>
+            <item android:top="5dp" android:bottom="5dp" android:start="5dp" android:end="5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/danger_dark" />
+                    <corners android:radius="3dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
     <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/focus_ring" />
+                    <corners android:radius="8dp" />
+                </shape>
+            </item>
+            <item android:top="3dp" android:bottom="3dp" android:start="3dp" android:end="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/surface" />
+                    <corners android:radius="5dp" />
+                </shape>
+            </item>
+            <item android:top="5dp" android:bottom="5dp" android:start="5dp" android:end="5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/danger" />
+                    <corners android:radius="3dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/danger" />
-            <stroke android:width="2dp" android:color="@color/on_danger" />
-            <corners android:radius="14dp" />
+            <solid android:color="@color/danger_dark" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/danger" />
-            <corners android:radius="14dp" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
 </selector>

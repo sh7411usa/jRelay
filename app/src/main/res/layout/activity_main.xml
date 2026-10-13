@@ -22,17 +22,35 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/text_group_name"
-                    style="@style/TextAppearance.JRelay.HeaderTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
                     style="@style/TextAppearance.JRelay.HeaderSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="@string/group_name_label" />
+
+                <TextView
+                    android:id="@+id/text_group_name"
+                    style="@style/TextAppearance.JRelay.HeaderTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/badge_service_paused"
+                    style="@style/Widget.JRelay.Badge.Danger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/badge_service_paused"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/badge_service_stopped"
+                    style="@style/Widget.JRelay.Badge.Danger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/badge_service_stopped"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/badge_announcement_mode"
@@ -44,12 +62,12 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/badge_service_paused"
-                    style="@style/Widget.JRelay.Badge.Danger"
+                    android:id="@+id/badge_reply_mode"
+                    style="@style/Widget.JRelay.Badge.Muted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/badge_service_paused"
+                    android:text="@string/badge_reply_mode"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -58,20 +76,126 @@
                 style="@style/Widget.JRelay.Button.Small.Outline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="@string/action_options" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+        <TextView
+            android:id="@+id/banner_relay_stopped"
+            style="@style/Widget.JRelay.Banner.Danger"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/banner_relay_stopped"
+            android:visibility="gone" />
 
-            <GridLayout
+        <TextView
+            android:id="@+id/banner_forwarding_health"
+            style="@style/Widget.JRelay.Banner.Danger"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/warning_permission_missing"
+            style="@style/Widget.JRelay.Banner.Danger"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/warning_permission_missing"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/banner_battery_optimisation"
+            style="@style/Widget.JRelay.Banner.Warning"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/banner_battery_optimisation"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/banner_join_requests"
+            style="@style/Widget.JRelay.Banner.Info"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            style="@style/Widget.JRelay.Page"
+            android:paddingTop="16dp">
+
+            <TextView
+                style="@style/Widget.JRelay.SectionTitle"
+                android:text="@string/section_dashboard_sending" />
+
+            <LinearLayout
+                style="@style/Widget.JRelay.Tile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/text_queue_count"
+                        style="@style/TextAppearance.JRelay.TileValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/badge_sending"
+                        style="@style/Widget.JRelay.Badge.Live"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/badge_sending"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextAppearance.JRelay.TileLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tile_queue" />
+
+                <TextView
+                    android:id="@+id/text_next_burst"
+                    style="@style/TextAppearance.JRelay.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_membership"
+                style="@style/Widget.JRelay.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginBottom="12dp">
+                android:layout_marginTop="16dp"
+                android:text="@string/view_membership" />
+
+            <TextView
+                style="@style/Widget.JRelay.SectionTitle"
+                android:layout_marginBottom="4dp"
+                android:text="@string/section_dashboard_group" />
+
+            <GridLayout
+                android:id="@+id/grid_stats_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
 
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
@@ -129,6 +253,18 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tile_muted" />
                 </LinearLayout>
+            </GridLayout>
+
+            <TextView
+                style="@style/Widget.JRelay.SectionTitle"
+                android:layout_marginBottom="4dp"
+                android:text="@string/section_dashboard_messages" />
+
+            <GridLayout
+                android:id="@+id/grid_stats_messages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
 
                 <LinearLayout
                     style="@style/Widget.JRelay.Tile"
@@ -147,25 +283,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tile_messages_today" />
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/Widget.JRelay.Tile"
-                    android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp">
-
-                    <TextView
-                        android:id="@+id/text_stats_messages_total"
-                        style="@style/TextAppearance.JRelay.TileValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        style="@style/TextAppearance.JRelay.TileLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tile_messages_total" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -194,65 +311,35 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/text_queue_count"
-                            style="@style/TextAppearance.JRelay.TileValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/badge_sending"
-                            style="@style/Widget.JRelay.Badge.Live"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="@string/badge_sending"
-                            android:visibility="gone" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_stats_messages_total"
+                        style="@style/TextAppearance.JRelay.TileValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         style="@style/TextAppearance.JRelay.TileLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tile_queue" />
+                        android:text="@string/tile_messages_total" />
                 </LinearLayout>
-
             </GridLayout>
 
             <TextView
-                android:id="@+id/text_next_burst"
-                style="@style/TextAppearance.JRelay.Caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
-
-            <Button
-                android:id="@+id/button_membership"
-                style="@style/Widget.JRelay.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/view_membership"
-                android:layout_marginBottom="24dp" />
+                style="@style/Widget.JRelay.SectionTitle"
+                android:text="@string/recent_activity" />
 
             <TextView
-                style="@style/TextAppearance.JRelay.Subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/recent_activity"
-                android:layout_marginBottom="8dp" />
+                android:id="@+id/text_recent_activity_empty"
+                style="@style/Widget.JRelay.EmptyState"
+                android:text="@string/no_activity_yet"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/container_recent_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

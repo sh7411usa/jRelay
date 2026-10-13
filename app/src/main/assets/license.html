@@ -43,6 +43,22 @@
         font-size: 13px;
         margin-top: 0;
     }
+    /* Night palette from values-night/colors.xml: background, text_primary, text_secondary, outline, primary */
+    @media (prefers-color-scheme: dark) {
+        body {
+            color: #ECEEF3;
+            background-color: #111318;
+        }
+        h2, hr {
+            border-color: #343946;
+        }
+        a {
+            color: #8AB0FF;
+        }
+        .meta {
+            color: #A9AFBC;
+        }
+    }
 </style>
 </head>
 <body>

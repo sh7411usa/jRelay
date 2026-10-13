@@ -1,61 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Order matches Prefs.BurstMode -->
     <string-array name="burst_mode_options">
         <item>@string/burst_mode_random_range</item>
         <item>@string/burst_mode_fixed</item>
         <item>@string/burst_mode_all_at_once</item>
     </string-array>
-
-    <!-- Order matches Prefs.MicrospacingMode -->
     <string-array name="microspacing_mode_options">
         <item>@string/microspacing_mode_fixed</item>
         <item>@string/microspacing_mode_random_range</item>
     </string-array>
-
-    <!-- Order matches Prefs.SaltTimestampFormat -->
     <string-array name="salt_timestamp_format_options">
         <item>@string/salt_format_time</item>
         <item>@string/salt_format_unix_seconds</item>
         <item>@string/salt_format_hex_seconds</item>
         <item>@string/salt_format_hex_millis</item>
     </string-array>
-
-    <!-- Order matches Prefs.SaltHexPosition -->
     <string-array name="salt_hex_position_options">
         <item>@string/salt_position_append</item>
         <item>@string/salt_position_prepend</item>
     </string-array>
-
-    <!-- Order matches Prefs.ThemeChoice -->
     <string-array name="theme_options">
         <item>@string/theme_system</item>
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
     </string-array>
-
-    <!-- Order matches Prefs.LANGUAGE_* constants (System/English/Hebrew/Yiddish) -->
     <string-array name="language_options">
         <item>@string/language_system</item>
         <item>@string/language_english</item>
         <item>@string/language_hebrew</item>
         <item>@string/language_yiddish</item>
     </string-array>
-
-    <!-- Order matches Prefs.JoinPolicy -->
     <string-array name="join_policy_options">
         <item>@string/join_policy_off</item>
         <item>@string/join_policy_allow</item>
         <item>@string/join_policy_require_approval</item>
     </string-array>
-
-    <!-- Order matches Prefs.GroupMode -->
     <string-array name="group_mode_options">
         <item>@string/group_mode_group</item>
         <item>@string/group_mode_announcement</item>
+        <item>@string/group_mode_reply</item>
     </string-array>
-
-    <!-- Positions 1-4 map to a fixed duration from now; position 5 is indefinite. Position 0 resumes. -->
     <string-array name="pause_options">
         <item>@string/pause_option_not_paused</item>
         <item>@string/pause_option_10_seconds</item>

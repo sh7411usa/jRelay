@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <!-- Brand -->
-    <color name="primary">#7C9BFF</color>
-    <color name="primary_dark">#5A7EFC</color>
-    <color name="primary_light">#26304D</color>
-    <color name="on_primary">#0B1020</color>
-
-    <!-- Surfaces -->
-    <color name="background">#12141B</color>
-    <color name="surface">#1B1E28</color>
-    <color name="outline">#333748</color>
-    <color name="divider">#2B2F3D</color>
-
-    <!-- Text -->
-    <color name="text_primary">#EDEEF4</color>
-    <color name="text_secondary">#A6ABBD</color>
-    <color name="text_hint">#767C8F</color>
-
-    <!-- Status -->
-    <color name="success">#4CD08A</color>
-    <color name="success_light">#173324</color>
-    <color name="warning">#E3A438</color>
-    <color name="warning_light">#3A2C11</color>
-    <color name="danger">#F0665A</color>
-    <color name="danger_light">#3A1E1B</color>
+    <color name="primary">#8AB0FF</color>
+    <color name="primary_dark">#A6C3FF</color>
+    <color name="primary_light">#1F2B47</color>
+    <color name="on_primary">#0A1633</color>
+    <color name="accent_secondary">#9DB4DB</color>
+    <color name="background">#111318</color>
+    <color name="surface">#1B1E25</color>
+    <color name="outline">#343946</color>
+    <color name="divider">#2A2E38</color>
+    <color name="input_outline">#6F7788</color>
+    <color name="text_primary">#ECEEF3</color>
+    <color name="text_secondary">#A9AFBC</color>
+    <color name="text_hint">#8C93A1</color>
+    <color name="success">#5CCB8F</color>
+    <color name="success_light">#15301F</color>
+    <color name="on_success_light">#9BE3BA</color>
+    <color name="warning">#E6AE55</color>
+    <color name="warning_light">#36290F</color>
+    <color name="on_warning_light">#F4CD8C</color>
+    <color name="danger">#FF8A80</color>
+    <color name="danger_dark">#FFB4AB</color>
+    <color name="danger_light">#3B1D1B</color>
+    <color name="on_danger_light">#FFB4AB</color>
     <color name="on_danger">#1A0E0C</color>
-
-    <color name="disband_red">#F0665A</color>
-    <color name="search_highlight">#FFF1A6</color>
-
-    <color name="press_highlight">#667C9BFF</color>
+    <color name="info">#8AB0FF</color>
+    <color name="info_light">#1F2B47</color>
+    <color name="on_info_light">#BCD0FF</color>
+    <color name="search_highlight">#4A3B00</color>
+    <color name="focus_ring">#D2E0FF</color>
+    <color name="focus_fill">#27365A</color>
+    <color name="pressed_fill">#232838</color>
+    <color name="disabled_fill">#2A2E38</color>
+    <color name="disabled_text">#8C93A1</color>
 </resources>

@@ -8,14 +8,6 @@ import com.sh7411usa.jrelay.model.Member;
 
 import java.util.Calendar;
 
-/**
- * Two independent daily quotas on relayed messages: a shared group pool (checked first, takes
- * precedence) and an optional per-member cap. Both reset at the same configurable time of day
- * ({@link Prefs#getDailyLimitResetMinuteOfDay()}, default midnight). Usage is derived from
- * {@code message_log} (no denormalized counters); each side's "bonus" (added by #override /
- * the Override button) is lazily zeroed here once its stored window no longer matches the
- * current one, so no background job is needed to reset anything at rollover.
- */
 public class DailyLimitManager {
 
     public static class Status {
@@ -53,7 +45,6 @@ public class DailyLimitManager {
         messageRepository = new MessageRepository(appContext);
     }
 
-    /** Start of the current reset window: the most recent reset-time instant at or before now. */
     public long currentWindowStart() {
         Calendar cal = Calendar.getInstance();
         int resetMinute = prefs.getDailyLimitResetMinuteOfDay();
@@ -61,12 +52,8 @@ public class DailyLimitManager {
         cal.set(Calendar.MINUTE, resetMinute % 60);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        long todayReset = cal.getTimeInMillis();
-        if (todayReset > System.currentTimeMillis()) {
-            cal.add(Calendar.DAY_OF_YEAR, -1);
-            todayReset = cal.getTimeInMillis();
-        }
-        return todayReset;
+        if (cal.getTimeInMillis() > System.currentTimeMillis()) cal.add(Calendar.DAY_OF_YEAR, -1);
+        return cal.getTimeInMillis();
     }
 
     public long nextResetAtMillis() {
@@ -77,11 +64,11 @@ public class DailyLimitManager {
         long windowStart = currentWindowStart();
         int bonus = lazyGroupBonus(windowStart);
         int used = messageRepository.countRelayedSince(windowStart);
-        int limit = prefs.getGroupDailyLimitValue() + bonus;
-        return new Status(prefs.isGroupDailyLimitEnabled(), false, used, limit, nextResetAtMillis());
+        return new Status(prefs.isGroupDailyLimitEnabled(), false, used,
+                prefs.getGroupDailyLimitValue() + bonus, nextResetAtMillis());
     }
 
-    /** A member with a custom cap but no value set (null) is unlimited: their own cap never blocks them. */
+    /** A member with a custom cap but no value set (null) is unlimited. */
     public Status memberStatus(Member member) {
         long windowStart = currentWindowStart();
         boolean unlimited = member.dailyLimitCustom && member.dailyLimitValue == null;
@@ -91,44 +78,33 @@ public class DailyLimitManager {
         return new Status(member.dailyLimitCustom, unlimited, used, limit, nextResetAtMillis());
     }
 
-    /** Adds one message of headroom to the group pool for the current window. */
     public void overrideGroup() {
         long windowStart = currentWindowStart();
-        int bonus = lazyGroupBonus(windowStart) + 1;
-        prefs.setGroupDailyLimitBonus(bonus);
+        prefs.setGroupDailyLimitBonus(lazyGroupBonus(windowStart) + 1);
         prefs.setGroupDailyLimitBonusWindowStart(windowStart);
     }
 
-    /** Adds one message of headroom to a member's individual cap. Returns false if they have no custom cap. */
     public boolean overrideMember(Member member) {
-        if (!member.dailyLimitCustom) {
-            return false;
-        }
+        if (!member.dailyLimitCustom) return false;
         long windowStart = currentWindowStart();
-        int bonus = lazyMemberBonus(member, windowStart) + 1;
-        memberRepository.setDailyLimitBonusState(member.id, bonus, windowStart);
+        memberRepository.setDailyLimitBonusState(member.id, lazyMemberBonus(member, windowStart) + 1, windowStart);
         return true;
     }
 
-    /** Seeds every (or every non-customized) active member's individual cap from one number. */
     public void bulkSetIndividualLimit(int value, boolean onlyNonCustomized) {
         memberRepository.bulkSetDailyLimit(value, onlyNonCustomized);
     }
 
     private int lazyGroupBonus(long windowStart) {
-        if (prefs.getGroupDailyLimitBonusWindowStart() != windowStart) {
-            prefs.setGroupDailyLimitBonus(0);
-            prefs.setGroupDailyLimitBonusWindowStart(windowStart);
-            return 0;
-        }
-        return prefs.getGroupDailyLimitBonus();
+        if (prefs.getGroupDailyLimitBonusWindowStart() == windowStart) return prefs.getGroupDailyLimitBonus();
+        prefs.setGroupDailyLimitBonus(0);
+        prefs.setGroupDailyLimitBonusWindowStart(windowStart);
+        return 0;
     }
 
     private int lazyMemberBonus(Member member, long windowStart) {
-        if (member.dailyLimitBonusWindowStart != windowStart) {
-            memberRepository.setDailyLimitBonusState(member.id, 0, windowStart);
-            return 0;
-        }
-        return member.dailyLimitBonus;
+        if (member.dailyLimitBonusWindowStart == windowStart) return member.dailyLimitBonus;
+        memberRepository.setDailyLimitBonusState(member.id, 0, windowStart);
+        return 0;
     }
 }

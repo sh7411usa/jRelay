@@ -7,16 +7,13 @@ public class Member {
     public boolean isAdmin;
     public boolean isMuted;
     public boolean active;
-    public String addedBy;
     public long createdAt;
-    public Long removedAt;
-
-    /** When true, dailyLimitValue caps this member's own relayed messages per day, independent of the group pool. */
     public boolean dailyLimitCustom;
     public Integer dailyLimitValue;
     public int dailyLimitBonus;
     public long dailyLimitBonusWindowStart;
-
-    /** Cumulative sends that exhausted retries since this member's last successful send. */
     public int failedCount;
+    public Long lastPostReceivedId;
+    // Null = unassigned (pre-existing rows are NULL); never conflate with 0.
+    public Long subgroupId;
 }

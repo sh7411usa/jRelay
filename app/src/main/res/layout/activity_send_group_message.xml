@@ -1,53 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout style="@style/Widget.JRelay.Header">
-            <TextView
-                style="@style/TextAppearance.JRelay.HeaderTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <TextView style="@style/TextAppearance.JRelay.HeaderTitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="@string/send_group_message_title" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <EditText
-                android:id="@+id/edit_group_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="4"
-                android:gravity="top|start"
-                android:hint="@string/hint_group_message"
-                android:inputType="textMultiLine|textCapSentences"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/button_send"
-                style="@style/Widget.JRelay.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_send"
-                android:layout_marginBottom="10dp" />
-
-            <Button
-                android:id="@+id/button_cancel"
-                style="@style/Widget.JRelay.Button.Outline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_cancel" />
-
+        <LinearLayout style="@style/Widget.JRelay.Page">
+            <TextView android:id="@+id/banner_send_stopped" style="@style/Widget.JRelay.Banner.Danger"
+                android:clickable="true" android:focusable="true" android:visibility="gone"
+                android:text="@string/send_group_stopped_banner" />
+            <TextView style="@style/Widget.JRelay.FormLabel"
+                android:labelFor="@+id/edit_group_message" android:text="@string/form_label_group_message" />
+            <EditText android:id="@+id/edit_group_message"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minLines="3" android:gravity="top|start"
+                android:inputType="textMultiLine|textCapSentences" android:importantForAutofill="no"
+                android:nextFocusDown="@+id/button_send" />
+            <TextView style="@style/TextAppearance.JRelay.Caption"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" android:layout_marginBottom="12dp"
+                android:text="@string/form_help_group_message" />
+            <TextView android:id="@+id/text_send_cost" style="@style/Widget.JRelay.Banner.Info" />
+            <LinearLayout style="@style/Widget.JRelay.ButtonBar">
+                <Button android:id="@+id/button_send" style="@style/Widget.JRelay.Button"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" android:text="@string/action_send" />
+                <Button android:id="@+id/button_cancel" style="@style/Widget.JRelay.Button.Outline"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/action_cancel" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

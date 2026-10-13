@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard section titles -->
+    <string name="section_dashboard_sending">שיקן</string>
+    <string name="section_dashboard_group">גרופע</string>
+    <string name="section_dashboard_messages">ידיעות</string>
+    <!-- Recent activity line: member name, then date and time -->
+    <string name="dashboard_activity_meta">%1$s • %2$s</string>
+    <!-- Queue countdown: minutes and seconds, or seconds only -->
+    <string name="dashboard_duration_ms">%1$d מינ׳ %2$d סעק׳</string>
+    <string name="dashboard_duration_s">%1$d סעק׳</string>
+    <!-- Forwarding health banner, the most urgent Dashboard banner -->
+    <string name="banner_forwarding_stopped">גרופע־ידיעות ווערן יעצט נישט ווייטערגעשיקט. דריקט דא עס ווידער אנצוהייבן.</string>
+    <string name="banner_forwarding_stopped_battery">גרופע־ידיעות ווערן נאך אלץ נישט ווייטערגעשיקט. דריקט דא צו פרובירן נאכאמאל, און באפרייט די אפליקאציע פון באטעריע־אפטימיזאציע אין די Android איינשטעלונגען.</string>
+    <!-- Battery optimisation prompt -->
+    <string name="banner_battery_optimisation">עס קען זיין אז Android וועט אפשטעלן דעם רעלעי כדי צו שפארן באטעריע. דריקט דא עס צו דערלויבן צו לויפן אינעם הינטערגרונט.</string>
+    <string name="toast_relay_self_member_removed">%1$s איז אראפגענומען געווארן פון די מיטגלידער. דאס איז דעם רעלעי טעלעפאנס אייגענער נומער, און ער קען נישט זיין א מיטגליד, ווייל ער וועט שיקן יעדע ידיעה צו זיך אליין.</string>
+    <!-- Relay stopped: header badge and the top Dashboard banner -->
+    <string name="badge_service_stopped">אויסגעלאשן</string>
+    <string name="banner_relay_stopped">דער רעלעי איז אויסגעלאשן. אריינקומענדיקע ידיעות ווערן איגנאָרירט. דריקט דא צו עפענען די איינשטעלונגען.</string>
+</resources>

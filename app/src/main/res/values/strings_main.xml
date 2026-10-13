@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard section titles -->
+    <string name="section_dashboard_sending">Sending</string>
+    <string name="section_dashboard_group">Group</string>
+    <string name="section_dashboard_messages">Messages</string>
+    <!-- Recent activity line: member name, then date and time -->
+    <string name="dashboard_activity_meta">%1$s • %2$s</string>
+    <!-- Queue countdown: minutes and seconds, or seconds only -->
+    <string name="dashboard_duration_ms">%1$dm %2$ds</string>
+    <string name="dashboard_duration_s">%1$ds</string>
+    <!-- Forwarding health banner, the most urgent Dashboard banner -->
+    <string name="banner_forwarding_stopped">Group messages are NOT being forwarded right now. Tap to restart.</string>
+    <string name="banner_forwarding_stopped_battery">Group messages are still NOT being forwarded. Tap to try again, and exempt this app from battery optimisation in Android settings.</string>
+    <!-- Battery optimisation prompt -->
+    <string name="banner_battery_optimisation">Android may stop the relay to save battery. Tap to allow it to run in the background.</string>
+    <string name="toast_relay_self_member_removed">Removed %1$s from the members. That number is this relay phone\'s own number, and it can\'t be a member, because it would send every post to itself.</string>
+    <!-- Relay stopped: header badge and the top Dashboard banner -->
+    <string name="badge_service_stopped">Stopped</string>
+    <string name="banner_relay_stopped">The relay is STOPPED. Incoming messages are being ignored. Tap to open Settings.</string>
+</resources>

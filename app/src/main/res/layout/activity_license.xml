@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webview_license"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="false"
-    android:longClickable="false" />
+<!-- Not a ScrollView root: a WebView inside a scrolling parent breaks rendering (lint WebViewLayout). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/background">
+    <LinearLayout style="@style/Widget.JRelay.Header">
+        <TextView style="@style/TextAppearance.JRelay.HeaderTitle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/consent_license_title" />
+    </LinearLayout>
+    <WebView android:id="@+id/webview_license"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:clickable="false" android:longClickable="false" />
+</LinearLayout>

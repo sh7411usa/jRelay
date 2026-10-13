@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">jRelay</string>
-
-    <!-- Consent -->
     <string name="consent_title">Before You Start</string>
     <string name="consent_body">jRelay relays group text messages by sending and receiving standard SMS through this device\'s mobile plan. Your carrier\'s standard messaging and data rates may apply to every message sent or received.\n\nYou are solely responsible for complying with all applicable laws, regulations, and carrier policies regarding automated, bulk, or unsolicited messaging (including but not limited to the TCPA and CTIA guidelines). This application is provided \"as is,\" without warranty of any kind, and the developer disclaims all liability for any misuse, message charges, legal violations, or damages arising from its use.\n\nYou must accept these terms to continue.</string>
     <string name="consent_license_agree">You have read and accept the terms of the license.</string>
     <string name="consent_agree">I Agree</string>
     <string name="consent_decline">Decline</string>
-
-    <!-- Dashboard -->
     <string name="group_name_label">Group Name</string>
     <string name="edit_group_name">Edit</string>
     <string name="action_options">Options</string>
@@ -17,24 +13,19 @@
     <string name="add_member_shortcut">Add Member</string>
     <string name="view_membership">Membership</string>
     <string name="view_rate_limit">Settings</string>
-    <string name="stats_members">Members: %1$d</string>
-    <string name="stats_admins">Admins: %1$d</string>
-    <string name="stats_muted">Muted: %1$d</string>
-    <string name="stats_messages_today">Messages Today: %1$d</string>
-    <string name="stats_messages_total">Messages Total: %1$d</string>
-    <string name="stats_failed_today">Failed Today: %1$d</string>
-    <string name="stats_queue_count">Messages in Queue: %1$d</string>
+    <string name="queue_holding_suffix">, holding %1$d</string>
+    <string name="queue_holding_only">Holding %1$d</string>
     <string name="stats_next_burst">Next burst in %1$s (%2$d messages)</string>
     <string name="badge_sending">Sending…</string>
     <string name="badge_announcement_mode">Announcement Mode</string>
+    <string name="badge_reply_mode">Reply Mode</string>
     <string name="badge_service_paused">Service Paused</string>
     <string name="menu_switch_to_announcement">Switch to Announcement Mode</string>
     <string name="menu_switch_to_group">Switch to Group Mode</string>
+    <string name="menu_switch_to_reply">Switch to Reply Mode</string>
     <string name="send_group_message_shortcut">Send to Group</string>
     <string name="recent_activity">Recent Activity</string>
     <string name="no_activity_yet">No activity yet.</string>
-
-    <!-- Dashboard stat tiles -->
     <string name="tile_members">Members</string>
     <string name="tile_admins">Admins</string>
     <string name="tile_muted">Muted</string>
@@ -47,12 +38,27 @@
     <string name="tile_activity_level">Activity</string>
     <string name="label_member_meta">Member since %1$s</string>
     <string name="label_member_meta_with_activity">Member since %1$s • Last active %2$s</string>
-
-    <!-- Membership -->
     <string name="membership_title">Members</string>
     <string name="admin_badge">(admin)</string>
     <string name="muted_badge">(muted)</string>
     <string name="no_members_yet">No members yet. Tap Add Member to get started.</string>
+    <string name="subgroup_section_title">Sub-groups</string>
+    <string name="action_suggest_subgroups">Suggest assignments</string>
+    <string name="subgroup_sizes_none">No sub-groups yet</string>
+    <string name="subgroup_size_line">Group %1$d: %2$d</string>
+    <string name="subgroup_row_badge">Group %1$d</string>
+    <string name="subgroup_row_unassigned_badge">No group</string>
+    <string name="subgroup_suggest_dialog_title">Suggest sub-groups</string>
+    <string name="subgroup_suggest_apply_action">Apply</string>
+    <string name="subgroup_assign_dialog_title">Assign %1$s</string>
+    <string name="subgroup_option_new">New sub-group</string>
+    <string name="subgroup_option_existing">Group %1$d (%2$d members)</string>
+    <string name="subgroup_option_clear">Clear assignment</string>
+    <string name="subgroup_confirm_assign_title">Assign to sub-group?</string>
+    <string name="subgroup_confirm_assign_detail">Put %1$s in group %2$d?</string>
+    <string name="subgroup_assigned_toast">%1$s is now in group %2$d.</string>
+    <string name="subgroup_cleared_toast">%1$s is no longer in a sub-group.</string>
+    <string name="warning_subgroup_visibility">Members of a sub-group will see each other\'s phone numbers. This cannot be undone — once a group message is sent, the numbers are on their phones. Right now, members only know this app\'s number.</string>
     <string name="menu_button_label">Menu</string>
     <string name="menu_export_csv">Export to CSV</string>
     <string name="menu_import_csv">Import from CSV</string>
@@ -66,23 +72,17 @@
     <string name="csv_import_report_usual">Usual (notify everyone, like adding one at a time)</string>
     <string name="csv_import_report_streamlined">Streamlined (tell old members how many joined)</string>
     <string name="csv_import_report_none">No reporting (add silently)</string>
-
-    <!-- Add Member -->
     <string name="add_member_title">Add Member</string>
-    <string name="hint_phone_number">Phone number</string>
-    <string name="hint_nickname">Nickname</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_retry_permission">Try Again</string>
+    <string name="action_open_app_settings">Open Settings</string>
     <string name="error_invalid_number">Invalid phone number format.</string>
     <string name="error_duplicate_number">This number is already a member.</string>
     <string name="error_empty_nickname">Nickname cannot be empty.</string>
-
-    <!-- Member Detail -->
-    <string name="label_member_since">Member since: %1$s</string>
-    <string name="label_last_activity">Last activity: %1$s</string>
-    <string name="label_messages_sent">Messages sent: %1$d</string>
-    <string name="label_messages_received">Messages received: %1$d</string>
-    <string name="label_activity_level">Activity (last 7 days): %1$s</string>
+    <string name="error_invalid_nickname">That name can\'t be used. Please pick a name without : or # and not starting with [ or @.</string>
+    <string name="tpl_join_name_required">To join, text #join followed by your first and last name. For example: #join Moshe Cohen</string>
+    <string name="error_last_admin">This member is the only admin. Make someone else an admin before removing or demoting them.</string>
     <string name="activity_level_high">Very active</string>
     <string name="activity_level_medium">Active</string>
     <string name="activity_level_low">Quiet</string>
@@ -100,11 +100,7 @@
     <string name="action_text">Text (Default App)</string>
     <string name="confirm_remove_title">Remove member?</string>
     <string name="confirm_remove_message">Remove %1$s from the group? They will be notified.</string>
-
-    <!-- Generic settings-saved confirmation, reused across several Settings sections -->
     <string name="rate_limit_member_saved">Saved.</string>
-
-    <!-- Member Detail: Daily Limit override -->
     <string name="section_daily_limit">Daily Limit</string>
     <string name="daily_limit_member_desc">By default this member draws only from the group\'s shared daily limit. Turn this on to also cap their own messages per day.</string>
     <string name="checkbox_custom_daily_limit">Use a custom daily limit for this member</string>
@@ -118,11 +114,8 @@
     <string name="daily_limit_not_customized">No individual limit set for this member (they still draw from the group\'s shared daily limit).</string>
     <string name="action_override_daily_limit">Override (+1 Today)</string>
     <string name="daily_limit_override_done">Added 1 message for today.</string>
-
-    <!-- Settings -->
     <string name="rate_limit_title">Settings</string>
     <string name="action_view_license">License</string>
-
     <string name="section_pause_service">Pause Service</string>
     <string name="pause_service_desc">Immediately stops all SMS sending and incoming message processing until resumed. Choosing an option below takes effect right away.</string>
     <string name="pause_option_not_paused">Not Paused</string>
@@ -132,18 +125,36 @@
     <string name="pause_option_1_day">Pause for 1 Day</string>
     <string name="pause_option_until_unpaused">Pause Until Unpaused</string>
     <string name="pause_status_not_paused">Not paused.</string>
+    <string name="action_resume_now">Resume now</string>
     <string name="pause_status_indefinite">Paused indefinitely.</string>
     <string name="pause_status_timed">Paused. Resumes in %1$s.</string>
-
+    <string name="pause_vs_stop_desc">Pause holds new messages and sends them when you resume. Stop ignores new messages and discards everything waiting to be sent.</string>
+    <string name="action_stop_relay">Stop relay</string>
+    <string name="action_start_relay">Start relay</string>
+    <string name="stop_relay_title">Stop the relay?</string>
+    <string name="stop_relay_confirm">New messages will be ignored until you start it again.</string>
+    <string name="stop_relay_confirm_discard">Messages waiting to be sent will be discarded: %1$d.</string>
+    <string name="toast_relay_stopped">Relay stopped. Messages discarded: %1$d.</string>
+    <string name="relay_status_stopped">Relay is STOPPED. Incoming messages are being ignored.</string>
+    <string name="stop_overrides_pause">Stop overrides Pause. Start the relay to use Pause again.</string>
+    <string name="duration_seconds">%1$ds</string>
+    <string name="duration_minutes_seconds">%1$dm %2$ds</string>
+    <string name="duration_hours_minutes">%1$dh %2$dm</string>
+    <string name="duration_days_hours">%1$dd %2$dh</string>
+    <string name="hint_time_hhmm" translatable="false">HH:mm</string>
+    <string name="line_break_join" translatable="false">%1$s\n%2$s</string>
     <string name="section_group_mode">Group Mode</string>
-    <string name="group_mode_desc">Group mode relays everyone\'s messages as usual. Announcement mode relays only admins\' messages to everyone -- everyone else\'s messages go to admins only. Can also be changed by text with #mode announcement / #mode group.</string>
+    <string name="group_mode_desc">Group mode relays everyone\'s messages as usual. Announcement mode relays only admins\' messages to everyone -- everyone else\'s messages go to admins only. Reply mode relays a message to everyone only when it starts with #all; a plain reply goes just to the member who posted. Can also be changed by text with #mode group / #mode announcement / #mode reply.</string>
     <string name="group_mode_group">Group Mode</string>
     <string name="group_mode_announcement">Announcement Mode</string>
-
+    <string name="group_mode_reply">Reply Mode</string>
+    <string name="section_reply_mode">Reply Mode</string>
+    <string name="reply_mode_desc">In Reply mode anyone can post to everyone by starting a message with #all. A plain reply goes only to the member who sent the last post you received. Can also be set by text with #mode reply.</string>
+    <string name="reply_window_hours_label">Reply window (hours; 0 = no limit)</string>
+    <string name="copy_replies_to_admins_label">Copy replies to admins</string>
     <string name="section_staggering">Staggering</string>
     <string name="staggering_desc">Waits between bursts of outgoing messages so sends don\'t all fire at once.</string>
     <string name="checkbox_staggering_enabled">Enable staggering between bursts</string>
-    <string name="rate_limit_app_section">Send Pacing</string>
     <string name="rate_limit_app_desc">Applies globally to every relayed message. Not configurable per member.</string>
     <string name="label_burst_min">Minimum messages per burst</string>
     <string name="label_burst_max">Maximum messages per burst</string>
@@ -154,7 +165,9 @@
     <string name="hint_min_wait">Seconds</string>
     <string name="hint_max_wait">Seconds</string>
     <string name="checkbox_initial_delay">Wait before sending the first burst (uses the wait range above)</string>
-
+    <string name="coalesce_window_label">Coalesce window (seconds; 0 = off)</string>
+    <string name="coalesce_window_hint">When several messages are posted within this many seconds, each member receives them as one text instead of one text each. 0 turns this off.</string>
+    <string name="max_merged_segments_label">Max segments per merged message</string>
     <string name="section_burst_configuration">Burst Configuration</string>
     <string name="label_burst_mode">Messages per burst</string>
     <string name="burst_mode_random_range">Random amount, between bounds</string>
@@ -162,7 +175,6 @@
     <string name="burst_mode_all_at_once">All messages at once</string>
     <string name="label_fixed_burst_size">Fixed messages per burst</string>
     <string name="hint_fixed_burst_size">Messages per burst</string>
-
     <string name="section_microspacing">Microspacing</string>
     <string name="microspacing_desc">Paces individual messages apart within one burst, in milliseconds.</string>
     <string name="checkbox_microspacing_enabled">Enable microspacing within a burst</string>
@@ -173,28 +185,38 @@
     <string name="hint_microspacing_fixed_ms">Milliseconds</string>
     <string name="label_microspacing_min_ms">Minimum milliseconds</string>
     <string name="label_microspacing_max_ms">Maximum milliseconds</string>
-
     <string name="section_delivery_shuffle">Delivery Queue Shuffling</string>
     <string name="delivery_shuffle_desc">Dispatches messages to members in a random order each cycle instead of a repeating order.</string>
     <string name="checkbox_delivery_shuffle">Shuffle delivery order</string>
-
-    <string name="section_member_reporting">Member Reporting</string>
-    <string name="member_reporting_desc">Applies to #add and the Add Member screen. CSV imports always ask separately.</string>
+    <string name="section_group_delivery">Group Delivery</string>
+    <string name="group_delivery_desc">Send each post as one group message per sub-group instead of one text per person. Assign members to sub-groups on the Membership screen first. Replies inside a group thread go straight between members and are not prefaced with a name.</string>
+    <string name="checkbox_group_delivery">Send by sub-group</string>
+    <string name="group_delivery_warning_title">Group delivery is experimental</string>
+    <string name="group_delivery_warning">Sending by sub-group has not been shown to work better than individual texts, and it may make delivery worse. Group messages go out all at once, so they cannot be staggered or salted the way individual texts are, which makes them easier for the carrier to flag as spam.</string>
+    <string name="group_delivery_warning_confirm">Turn it on anyway</string>
+    <string name="roster_header">%1$s roster:</string>
+    <string name="roster_footer">Save these contacts so you know who is writing.</string>
+    <string name="action_send_rosters">Send sub-group rosters</string>
+    <string name="roster_queued">Rosters queued for %1$d sub-group(s).</string>
+    <string name="roster_none">No sub-groups to send a roster to.</string>
+    <string name="action_merge_subgroups">Merge small sub-groups</string>
+    <string name="merge_dialog_title">Merge small sub-groups</string>
+    <string name="merge_apply_action">Merge</string>
+    <string name="merge_none">No sub-group is small enough to merge, or none has room to take one.</string>
+    <string name="merge_blocked_pending">Messages are still being sent to one of these sub-groups. Wait a moment and try again.</string>
+    <string name="error_group_delivery_no_subgroups">Assign members to sub-groups first, on the Membership screen.</string>
     <string name="checkbox_added_reporting_enabled">Notify group when a member is added</string>
-
     <string name="section_join_requests">Join Requests</string>
     <string name="join_requests_desc">Lets anyone text #join &lt;nickname&gt; to this number to request joining the group. Off by default.</string>
     <string name="label_join_policy">Allow joining by text</string>
     <string name="join_policy_off">Off</string>
     <string name="join_policy_allow">Allow</string>
     <string name="join_policy_require_approval">Require Approval</string>
-
     <string name="section_message_content">Message Content</string>
     <string name="checkbox_append_sender_number">Append sender\'s number to relayed messages</string>
     <string name="append_sender_number_desc">Adds the sender\'s own number in plain digits (e.g. 2345678910) to the end of every relayed message.</string>
     <string name="checkbox_strip_phone_numbers">Strip phone numbers from relayed messages</string>
     <string name="strip_phone_numbers_desc">Removes anything that looks like a phone number from a member\'s message before relaying it.</string>
-
     <string name="section_salting">Salting</string>
     <string name="salting_desc">Makes each relayed message unique, e.g. to avoid carrier duplicate-message filtering. All off by default.</string>
     <string name="checkbox_salt_timestamp">Append a unique timestamp</string>
@@ -208,7 +230,6 @@
     <string name="salt_position_append">Append</string>
     <string name="salt_position_prepend">Prepend</string>
     <string name="checkbox_salt_zwsp">Inject random invisible spaces between words</string>
-
     <string name="section_failures_retries">Failures &amp; Retries</string>
     <string name="label_retry_limit">Retry limit</string>
     <string name="hint_retry_limit">Retries</string>
@@ -216,7 +237,6 @@
     <string name="label_failure_alert_threshold">Failure alert threshold</string>
     <string name="hint_failure_alert_threshold">Failures</string>
     <string name="failure_alert_threshold_desc">Alert admins once a member\'s failed-send count reaches a multiple of this number.</string>
-
     <string name="section_group_daily_limit">Group Daily Limit</string>
     <string name="label_daily_limit_reset_time">Limits reset at</string>
     <string name="checkbox_group_daily_limit_enabled">Enable a shared group daily limit</string>
@@ -231,7 +251,20 @@
     <string name="action_apply_to_all">Apply to All Members</string>
     <string name="action_apply_to_non_customized">Apply to Members Without a Custom Limit</string>
     <string name="individual_limit_applied">Applied to %1$d member(s).</string>
-
+    <string name="settings_section_capacity">Group Capacity</string>
+    <string name="label_max_members">Maximum members (0 = no limit)</string>
+    <string name="max_members_desc">The most active members the group will hold. When it is full, anyone texting to join gets the message below. 0 means no limit.</string>
+    <string name="label_group_full_message">Message when the group is full</string>
+    <string name="group_full_message_desc">Sent automatically to anyone who tries to join a full group. Leave empty to use the default wording.</string>
+    <string name="capacity_saved">Capacity settings saved.</string>
+    <string name="settings_section_notices">Group Notices</string>
+    <string name="notices_desc">Each of these texts every member of the group. At 100 members that is 100 messages per event, against your daily limit. The person directly affected is always told either way.</string>
+    <string name="label_notify_member_left">Announce when someone leaves</string>
+    <string name="label_notify_name_changed">Announce nickname changes</string>
+    <string name="label_notify_member_removed">Announce when an admin removes someone</string>
+    <string name="label_notify_group_renamed">Announce group name changes</string>
+    <string name="label_notify_mode_changed">Announce mode changes</string>
+    <string name="notices_saved">Notice settings saved.</string>
     <string name="rate_limit_system_section">Android Outgoing SMS Limit</string>
     <string name="rate_limit_system_desc">Android itself warns/blocks an app that sends too many texts too quickly. These are the system-wide thresholds.</string>
     <string name="label_system_max_count">Max messages before warning</string>
@@ -239,59 +272,69 @@
     <string name="hint_system_max_count">Count</string>
     <string name="hint_system_interval_minutes">Minutes</string>
     <string name="rate_limit_permission_missing">jRelay does not have permission to change this system setting. Run this command from a computer with ADB, with the device connected. Tap it to copy:</string>
+    <string name="warning_permission_missing">jRelay is missing a permission it needs and is not relaying messages. Tap to fix.</string>
+    <string name="permission_denied_critical">jRelay cannot send or receive messages without SMS permission. The relay will not work until it is granted.</string>
+    <string name="permission_denied_notifications">Without notification permission you will not be alerted about failed messages or admin requests. The relay will still work.</string>
     <string name="rate_limit_value_unavailable">Not available on this device</string>
     <string name="toast_adb_command_copied">Command copied to clipboard.</string>
-
     <string name="section_language">Language</string>
     <string name="label_language">App language</string>
-    <!-- Each shown in its own language, not translated per-locale -->
     <string name="language_system">System Default</string>
     <string name="language_english">English</string>
     <string name="language_hebrew">עברית</string>
     <string name="language_yiddish">יידיש</string>
-
     <string name="section_appearance">Appearance</string>
     <string name="label_theme">Theme</string>
     <string name="theme_system">System Default</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-
+    <string name="section_commands">Commands</string>
+    <string name="commands_desc">Accept common opt-out and help words sent on their own, without the leading #.</string>
+    <string name="accept_bare_keywords_label">Accept bare keywords (STOP, HELP, MUTE)</string>
+    <string name="command_switches_desc">Unchecked commands are hidden from #commands and answered as unknown. With #all off in reply mode, members cannot post to everyone.</string>
+    <string name="command_switches_member">Member commands</string>
+    <string name="command_switches_admin">Admin commands</string>
+    <string name="command_switches_reply">Reply mode commands</string>
+    <string name="command_always_on">%1$s (always on)</string>
     <string name="section_miscellaneous">Miscellaneous</string>
-
     <string name="section_about">About</string>
     <string name="tpl_app_version">jRelay %1$s (%2$d)</string>
-
-    <!-- Clear History -->
     <string name="action_clear_history">Clear History (%1$s)</string>
     <string name="clear_history_title">Clear History?</string>
     <string name="clear_history_warning">This will permanently erase the message history behind the dashboard and member activity feeds and stats. Members and settings are not affected, and nobody will be notified. This cannot be undone.</string>
     <string name="clear_history_done">History cleared.</string>
     <string name="action_continue">Continue</string>
-
-    <!-- Disband Group -->
     <string name="action_disband_group">Disband Group</string>
     <string name="disband_group_title">Disband Group?</string>
     <string name="disband_group_warning">This will permanently erase all members and all message history. Nobody will be notified. This cannot be undone.\n\nTo confirm, enter the PIN shown below.</string>
-    <string name="hint_disband_pin">Enter PIN</string>
     <string name="disband_pin_mismatch">PIN did not match. The group was not disbanded.</string>
     <string name="disband_group_done">The group has been disbanded.</string>
-
-    <!-- Send to Group -->
     <string name="send_group_message_title">Send to Group</string>
-    <string name="hint_group_message">Message to send to every active member</string>
     <string name="action_send">Send</string>
-
-    <!-- Notifications -->
     <string name="notification_channel_admin">Admin Messages</string>
     <string name="notification_admin_title">Admin message</string>
-
-    <!-- Command reply / broadcast templates -->
+    <string name="notif_send_title">jRelay is relaying</string>
+    <string name="notif_send_channel_name">Relay activity</string>
+    <string name="notif_send_channel_desc">Shown while messages are being sent, so the relay keeps running when the screen is off.</string>
+    <string name="notif_send_idle">Preparing to send</string>
+    <string name="notif_send_status">%1$d pending, %2$d held</string>
+    <string name="notif_send_status_burst">%1$d pending, %2$d held, burst scheduled</string>
+    <string name="notif_send_paused">Paused, %1$d waiting</string>
+    <string name="notif_mms_ingest_title">jRelay is watching for replies</string>
+    <string name="notif_mms_ingest_channel_name">Group reply watch</string>
+    <string name="notif_mms_ingest_channel_desc">Shown while jRelay watches for inbound group MMS replies to relay, so it keeps running when the screen is off.</string>
+    <string name="notif_mms_ingest_idle">Waiting for group replies</string>
     <string name="tpl_added_you">%1$s added you to %2$s Group. Reply #stop at anytime to opt out.</string>
+    <string name="tpl_welcome_reply_hint"> Start a message with #all to post to everyone. A plain reply goes only to the person who posted.</string>
     <string name="tpl_added_other">%1$s added %2$s to the group.</string>
     <string name="tpl_removed_you">You have been removed from %1$s Group. You will no longer receive messages from this Group.</string>
     <string name="tpl_removed_other">%1$s removed %2$s from the group.</string>
     <string name="tpl_left_other">%1$s left the group.</string>
+    <string name="tpl_last_admin_refused">You are the only admin. Make someone else an admin from the app before leaving the group.</string>
     <string name="tpl_muted_confirm">You are now muted. Reply #unmute to resume receiving messages.</string>
+    <string name="tpl_group_full_default">Sorry, this group has reached its maximum capacity. Please try again later.</string>
+    <string name="tpl_group_full_admin">The group is full (%1$d of %2$d members). Raise the member limit in Settings to add more.</string>
+    <string name="capacity_status">You have %d active members.</string>
     <string name="tpl_unmuted_confirm">You are now unmuted. You will resume receiving messages.</string>
     <string name="tpl_name_changed_confirm">Your name has been changed to %1$s.</string>
     <string name="tpl_name_changed_self_other">%1$s changed their name to %2$s.</string>
@@ -300,41 +343,94 @@
     <string name="tpl_unauthorized">Only admins can use this command.</string>
     <string name="tpl_unknown_command">Unknown command. Reply #commands for a list of commands.</string>
     <string name="tpl_invalid_number">Invalid phone number format.</string>
+    <string name="tpl_to_wrong_mode">Only available in Reply Mode.</string>
+    <string name="tpl_to_usage">Usage: #to &lt;nickname&gt; &lt;message&gt;</string>
+    <string name="tpl_to_not_found">No active member named %1$s.</string>
     <string name="tpl_relay_prefix">%1$s: %2$s</string>
     <string name="tpl_admin_relay_prefix">@admin %1$s: %2$s</string>
+    <string name="tpl_reply_prefix">%1$s (reply): %2$s</string>
+    <string name="tpl_reply_no_target">Sent to the admins. To post to everyone, start your message with #all.</string>
+    <string name="tpl_reply_copy_admin">@admin reply from %1$s to %2$s: %3$s</string>
     <string name="tpl_dm_prefix">[Admin]: %1$s</string>
-    <string name="tpl_commands_list_common">Available commands:\n#commands - show this list\n#mute - pause messages\n#unmute - resume messages\n#stop - leave the group\n#list - list members\n#name &lt;new nickname&gt; - change your nickname\n#admin &lt;message&gt; - message admins only\n#mode - show the current group mode\n#join &lt;nickname&gt; - request to join (non-members)</string>
-    <string name="tpl_commands_list_admin_extra">\n(Admins) #add &lt;number&gt; &lt;nickname&gt; - add a member\n(Admins) #remove &lt;nickname or number&gt; - remove a member\n(Admins) #topic &lt;new name&gt; - change the group name\n(Admins) #limits - show today\'s group limit status\n(Admins) #override [nickname or number] - add 1 message to the group limit, or a member\'s individual limit\n(Admins) #mode announcement|group - switch between Announcement and Group mode</string>
+    <string name="tpl_commands_list_header">Available commands:</string>
+    <string name="cmd_line_commands">#commands - show this list</string>
+    <string name="cmd_line_help">#help - how to send a message in this group</string>
+    <string name="cmd_line_mute">#mute - pause messages\n#unmute - resume messages</string>
+    <string name="cmd_line_stop">#stop - leave the group</string>
+    <string name="cmd_line_list">#list - list members</string>
+    <string name="cmd_line_name">#name &lt;new nickname&gt; - change your nickname</string>
+    <string name="cmd_line_admin">#admin &lt;message&gt; - message admins only</string>
+    <string name="cmd_line_mode">#mode - show the current group mode</string>
+    <string name="cmd_line_join">#join &lt;nickname&gt; - request to join (non-members)</string>
+    <string name="cmd_line_add">(Admins) #add &lt;number&gt; &lt;nickname&gt; - add a member</string>
+    <string name="cmd_line_remove">(Admins) #remove &lt;nickname or number&gt; - remove a member</string>
+    <string name="cmd_line_topic">(Admins) #topic &lt;new name&gt; - change the group name</string>
+    <string name="cmd_line_limits">(Admins) #limits - show today\'s group limit status</string>
+    <string name="cmd_line_override">(Admins) #override [nickname or number] - add 1 message to the group limit, or a member\'s individual limit</string>
+    <string name="cmd_line_mode_set">(Admins) #mode group|announcement|reply - switch group mode</string>
+    <string name="cmd_line_all">#all &lt;message&gt; - post to everyone</string>
+    <string name="cmd_line_to">#to &lt;nickname&gt; &lt;message&gt; - reply privately to one member</string>
     <string name="tpl_list_you">(You)</string>
     <string name="tpl_list_admin">(admin)</string>
     <string name="default_added_by_admin">An Admin</string>
-
-    <!-- Daily limit templates -->
     <string name="tpl_group_limit_blocked">Group limit reached: %1$d of %2$d messages used today. Resets at %3$s. Contact an admin for an override.</string>
     <string name="tpl_individual_limit_blocked">Individual limit reached: %1$d of %2$d messages used today. Resets at %3$s. Contact an admin for an override.</string>
+    <string name="tpl_post_rate_limited">You can send up to 2 messages every 10 minutes. Please wait 10 minutes before sending another message.</string>
     <string name="tpl_limits_status">Group limit: %1$d of %2$d messages used today (%3$d remaining). Resets at %4$s.</string>
     <string name="tpl_limits_disabled">The group daily limit is not enabled.</string>
     <string name="tpl_override_group_done">Added 1 message to the group\'s limit for today.</string>
     <string name="tpl_override_member_done">Added 1 message to %1$s\'s limit for today.</string>
     <string name="tpl_override_member_no_limit">%1$s does not have an individual limit set. Use #override with no name to add to the group limit instead.</string>
-
-    <!-- Failure alert -->
     <string name="tpl_failure_alert">@system: %1$s has had %2$d failed messages.</string>
-
-    <!-- Announcement / Group mode -->
+    <string name="tpl_group_failure_alert">@system: Group message to sub-group %1$d failed. Those members did not receive it.</string>
+    <string name="tpl_failed_with_reason">%1$s -- %2$s</string>
     <string name="tpl_mode_status_announcement">Announcement mode is on: only admin messages are relayed to everyone. Everyone else\'s messages go to admins only.</string>
     <string name="tpl_mode_status_group">Group mode is on: everyone\'s messages are relayed to the group.</string>
-    <string name="tpl_mode_invalid">Usage: #mode announcement or #mode group</string>
+    <string name="tpl_mode_status_reply">Reply mode is on: start a message with #all to post to everyone. A plain reply goes only to the person who posted.</string>
+    <string name="tpl_help_group">Just text normally and everyone in the group gets it. Reply #commands for the full list, or #stop to leave.</string>
+    <string name="tpl_help_announcement">Only admins\' messages go to everyone right now. Anything you send goes to the admins. Reply #commands for the full list, or #stop to leave.</string>
+    <string name="tpl_help_reply">Start your message with #all to send it to everyone. Without it, your message goes only to whoever sent the last post you received. Reply #commands for the full list, or #stop to leave.</string>
+    <string name="tpl_help_muted">You are muted, so you will not receive group messages and yours will not be relayed. Reply #unmute to turn messages back on, or #commands for the full list.</string>
+    <string name="tpl_mode_invalid">Usage: #mode group, #mode announcement, or #mode reply</string>
     <string name="tpl_mode_changed_announcement">%1$s switched the group to Announcement mode. Only admin messages will be relayed to everyone from now on.</string>
     <string name="tpl_mode_changed_group">%1$s switched the group back to Group mode. Everyone\'s messages will be relayed again.</string>
-
-    <!-- Joining by text (#join) -->
+    <string name="tpl_mode_changed_reply">%1$s switched the group to Reply mode. Start a message with #all to post to everyone; a plain reply goes only to the person who posted.</string>
     <string name="tpl_added_you_self">You joined %1$s Group. Reply #stop at anytime to opt out.</string>
     <string name="tpl_joined_other">%1$s joined the group.</string>
     <string name="tpl_join_already_member">You\'re already a member of this group.</string>
     <string name="tpl_join_request_admin">%1$s (%2$s) wants to join. Reply: %3$s</string>
     <string name="tpl_join_request_sent">Your request to join has been sent to the admins.</string>
-
-    <!-- CSV import reporting -->
     <string name="tpl_csv_import_streamlined_notice">%1$s added %2$d new members.</string>
+    <string name="send_result_ok">Delivered to carrier</string>
+    <string name="send_result_generic">Carrier rejected the message</string>
+    <string name="send_result_radio_off">Phone had no signal (airplane mode or radio off)</string>
+    <string name="send_result_no_service">No cell service at the time</string>
+    <string name="send_result_null_pdu">Message could not be encoded</string>
+    <string name="send_result_limit_exceeded">Sending too fast -- check the outgoing SMS limit in Settings</string>
+    <string name="send_result_short_code_not_allowed">Carrier blocked this as a short-code message</string>
+    <string name="send_result_not_sent">Never reached the network</string>
+    <string name="send_result_unknown">Send failed (code %1$d)</string>
+    <string name="join_requests_header">Join requests (%1$d)</string>
+    <string name="banner_join_requests">Join requests waiting: %1$d. Tap to review.</string>
+    <string name="action_approve">Approve</string>
+    <string name="action_decline">Decline</string>
+    <string name="join_approve_confirm">Add %1$s to the group?</string>
+    <string name="join_decline_confirm">Decline %1$s? They will not be told.</string>
+    <string name="join_approved_toast">%1$s added.</string>
+    <string name="join_already_member_toast">%1$s is already a member.</string>
+    <string name="join_group_full_toast">The group is full. Remove someone or raise the limit first.</string>
+    <string name="join_declined_toast">Request declined.</string>
+    <string name="join_approved_by_app">Admin</string>
+    <string name="settings_cat_group">Group</string>
+    <string name="settings_cat_group_desc">Mode, replies, commands, notices, join requests, capacity</string>
+    <string name="settings_cat_delivery">Group delivery</string>
+    <string name="settings_cat_delivery_desc">Group delivery, queue shuffling</string>
+    <string name="settings_cat_speed">Sending speed</string>
+    <string name="settings_cat_speed_desc">Staggering, bursts, microspacing, merging</string>
+    <string name="settings_cat_limits">Limits and failures</string>
+    <string name="settings_cat_limits_desc">Retries, group daily limit, Android SMS limit</string>
+    <string name="settings_cat_content">Message content</string>
+    <string name="settings_cat_content_desc">Sender number, phone numbers, salting</string>
+    <string name="settings_cat_app">App</string>
+    <string name="settings_cat_app_desc">Language, appearance, history, license, version</string>
 </resources>

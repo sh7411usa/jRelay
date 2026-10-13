@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="membership_join_requests_caption">האנשים האלה שלחו ‎#join. אישור מוסיף אותם לקבוצה; דחייה מסרבת לבקשה.</string>
+    <string name="membership_subgroups_caption">שרשורי קבוצה קטנים לשליחה לפי תת-קבוצה. הכלים שלמטה פועלים על חברים רבים בבת אחת.</string>
+    <string name="membership_members_count">רשימת חברים (%1$d)</string>
+    <string name="membership_members_caption">בחרו שם כדי לראות פרטים. בחרו את תג הקבוצה שלו כדי לשייך לתת-קבוצה.</string>
+    <string name="membership_rosters_group_only">רשימות נשלחות רק כאשר משלוח בקבוצות מופעל.</string>
+    <string name="membership_rosters_stopped">הממסר עצור. לא ניתן לשלוח דבר.</string>
+</resources>

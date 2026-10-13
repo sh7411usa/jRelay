@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard section titles -->
+    <string name="section_dashboard_sending">שליחה</string>
+    <string name="section_dashboard_group">קבוצה</string>
+    <string name="section_dashboard_messages">הודעות</string>
+    <!-- Recent activity line: member name, then date and time -->
+    <string name="dashboard_activity_meta">%1$s • %2$s</string>
+    <!-- Queue countdown: minutes and seconds, or seconds only -->
+    <string name="dashboard_duration_ms">%1$d דק׳ %2$d שנ׳</string>
+    <string name="dashboard_duration_s">%1$d שנ׳</string>
+    <!-- Forwarding health banner, the most urgent Dashboard banner -->
+    <string name="banner_forwarding_stopped">הודעות קבוצתיות אינן מועברות כרגע. יש להקיש כדי להפעיל מחדש.</string>
+    <string name="banner_forwarding_stopped_battery">הודעות קבוצתיות עדיין אינן מועברות. יש להקיש כדי לנסות שוב, ולפטור את האפליקציה מאופטימיזציית הסוללה בהגדרות של Android.</string>
+    <!-- Battery optimisation prompt -->
+    <string name="banner_battery_optimisation">ייתכן שמערכת Android תעצור את הממסר כדי לחסוך בסוללה. יש להקיש כדי לאפשר לו לפעול ברקע.</string>
+    <string name="toast_relay_self_member_removed">הסרנו את %1$s מרשימת החברים. זה המספר של טלפון המעביר עצמו, והוא לא יכול להיות חבר, כי אז הוא ישלח לעצמו כל הודעה.</string>
+    <!-- Relay stopped: header badge and the top Dashboard banner -->
+    <string name="badge_service_stopped">עצור</string>
+    <string name="banner_relay_stopped">הממסר עצור. המערכת מתעלמת מהודעות נכנסות. יש להקיש כדי לפתוח את ההגדרות.</string>
+</resources>

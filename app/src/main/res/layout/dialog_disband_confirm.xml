@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/text_disband_pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/edit_disband_pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_disband_pin"
-        android:inputType="number"
-        android:maxLength="4"
-        android:gravity="center" />
-
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+        <TextView style="@style/Widget.JRelay.Banner.Danger"
+            android:layout_marginBottom="12dp" android:text="@string/disband_danger_banner" />
+        <TextView style="@style/Widget.JRelay.FormLabel" android:text="@string/disband_pin_shown_label" />
+        <TextView android:id="@+id/text_disband_pin"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textSize="28sp" android:textStyle="bold" android:textColor="@color/danger"
+            android:textDirection="ltr" android:gravity="center" android:letterSpacing="0.2" />
+        <TextView style="@style/Widget.JRelay.FormLabel"
+            android:labelFor="@+id/edit_disband_pin" android:text="@string/disband_pin_input_label" />
+        <EditText android:id="@+id/edit_disband_pin" style="@style/Widget.JRelay.EditText"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="number" android:importantForAutofill="no" android:maxLength="4"
+            android:textDirection="ltr" android:imeOptions="actionDone" android:gravity="center" />
+    </LinearLayout>
+</ScrollView>

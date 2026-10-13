@@ -6,33 +6,25 @@ import android.content.Intent;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 
-public class SmsReceiver extends BroadcastReceiver {
+import com.sh7411usa.jrelay.sms.mms.MmsIngestService;
 
+public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
-            return;
-        }
+        if (!Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) return;
         SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-        if (messages == null || messages.length == 0) {
-            return;
-        }
+        if (messages == null || messages.length == 0) return;
         String sender = messages[0].getOriginatingAddress();
-        if (sender == null) {
-            return;
+        String normalized = sender == null ? null : PhoneNumberUtils.normalize(sender);
+        if (normalized == null) return;
+        String[] partBodies = new String[messages.length];
+        for (int i = 0; i < messages.length; i++) partBodies[i] = messages[i].getMessageBody();
+        String body = SmsCatchUp.concatBodies(partBodies);
+        // Claim key must match SmsCatchUp's (first part's timestamp == provider date_sent) so a late broadcast is not relayed twice.
+        if (SmsCatchUp.claim(context, normalized, messages[0].getTimestampMillis(), body,
+                System.currentTimeMillis(), SmsCatchUp.SOURCE_LIVE)) {
+            new CommandProcessor(context).handleIncoming(normalized, body);
         }
-        String normalized = PhoneNumberUtils.normalize(sender);
-        if (normalized == null) {
-            return;
-        }
-
-        StringBuilder bodyBuilder = new StringBuilder();
-        for (SmsMessage message : messages) {
-            if (message.getMessageBody() != null) {
-                bodyBuilder.append(message.getMessageBody());
-            }
-        }
-
-        new CommandProcessor(context).handleIncoming(normalized, bodyBuilder.toString());
+        MmsIngestService.start(context.getApplicationContext());
     }
 }
